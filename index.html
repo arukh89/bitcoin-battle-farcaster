@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$Seconds Bitcoin TX Battle Royale with miggles.eth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .bitcoin-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(45deg, #f7931a, #ffa500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-weight: bold;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+        }
+
+        .real-time-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #10b981, #059669);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(16, 185, 129, 0.3); }
+            to { box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
+        }
+
+        .game-rules {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .objective {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.95);
+            text-align: center;
+        }
+
+        .prize-pool {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .prize-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .prizes {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .prize-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .prize-amount {
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .jackpot {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.15));
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-top: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .jackpot-amount {
+            font-weight: 800;
+            color: #ffd700;
+            font-size: 16px;
+        }
+
+        .game-hints {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .hint-item {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .hint-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .mempool-link {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .mempool-link:hover {
+            color: #93c5fd;
+            text-decoration: underline;
+        }
+
+        .farcaster-participants {
+            background: rgba(139, 69, 19, 0.1);
+            border: 1px solid rgba(139, 69, 19, 0.3);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .participants-header {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+            color: #d97706;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .fid-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .fid-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .fid-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fid-number {
+            background: rgba(139, 69, 19, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .fid-guess {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+
+        .player-count {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .player-counter {
+            color: #f7931a;
+            background: rgba(247, 147, 26, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .game-area {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .block-info {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border-left: 4px solid #f7931a;
+        }
+
+        .block-number {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-bottom: 4px;
+        }
+
+        .block-details {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+        }
+
+        .block-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .status-waiting {
+            background: rgba(249, 115, 22, 0.2);
+            color: #f97316;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+
+        .status-mined {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .mempool-info {
+            background: rgba(139, 69, 19, 0.1);
+            border: 1px solid rgba(139, 69, 19, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+
+        .mempool-stat {
+            display: inline-block;
+            margin-right: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .join-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .username-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .username-input:focus {
+            outline: none;
+            border-color: #f7931a;
+            box-shadow: 0 0 0 3px rgba(247, 147, 26, 0.2);
+        }
+
+        .join-btn {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #10b981, #059669);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 12px;
+        }
+
+        .join-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .guess-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .guess-input {
+            width: 100%;
+            max-width: 200px;
+            padding: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .guess-input:focus {
+            outline: none;
+            border-color: #f7931a;
+            box-shadow: 0 0 0 3px rgba(247, 147, 26, 0.2);
+        }
+
+        .submit-btn {
+            padding: 16px 32px;
+            background: linear-gradient(45deg, #f7931a, #ffa500);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(247, 147, 26, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .players-list {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .players-header {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+            color: #fbbf24;
+        }
+
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .player-name {
+            font-weight: 500;
+        }
+
+        .player-guess {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .champions-section {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(192, 192, 192, 0.1));
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .champions-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .champion-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .champion1 {
+            border-left-color: #ffd700;
+        }
+
+        .champion2 {
+            border-left-color: #c0c0c0;
+        }
+
+        .champion-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .champion-rank {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .rank1 {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+        }
+
+        .rank2 {
+            background: linear-gradient(45deg, #c0c0c0, #e5e7eb);
+            color: #000;
+        }
+
+        .champion-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .champion-stats {
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .accuracy {
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .waiting-area {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .countdown {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f7931a;
+            margin-bottom: 8px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #f7931a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 4px;
+        }
+
+        .leaderboard {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .leaderboard-header {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+            color: #fbbf24;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .player-rank {
+            width: 24px;
+            font-weight: bold;
+        }
+
+        .new-round-btn {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .new-round-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-state {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .state-waiting {
+            color: #fbbf24;
+        }
+
+        .state-active {
+            color: #10b981;
+        }
+
+        .state-results {
+            color: #f59e0b;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="bitcoin-icon">₿</div>
+            <h1 class="title">$Seconds Bitcoin TX Battle Royale</h1>
+            <p class="subtitle">Real-time blockchain competition with miggles.eth <span class="real-time-badge">LIVE</span></p>
+        </div>
+
+        <!-- Farcaster Game Rules -->
+        <div class="game-rules">
+            <div class="objective">
+                🎯 <strong>Objective:</strong> Predict the number of transactions in Bitcoin blocks<br>
+                Comment your guess below and the closest answer wins.
+            </div>
+            
+            <div class="prize-pool">
+                <div class="prize-title">Prize pool 🏆</div>
+                <div class="prizes">
+                    <div class="prize-item">🥇 1st place: <span class="prize-amount">1000 $Seconds</span></div>
+                    <div class="prize-item">🥈 2nd place: <span class="prize-amount">500 $Seconds</span></div>
+                    <div class="jackpot">Accumulative jackpot (increases by 250 $Seconds per game): <span class="jackpot-amount">12500 $SECONDS</span></div>
+                </div>
+            </div>
+
+            <div class="game-hints">
+                <div class="hint-item">- Visit <a href="https://mempool.space" target="_blank" class="mempool-link">mempool.space</a> to see current projected transactions to help with your guess.</div>
+                <div class="hint-item">- <strong>Strictly only one guess</strong></div>
+            </div>
+        </div>
+
+        <!-- Farcaster Participants -->
+        <div class="farcaster-participants" id="farcasterParticipants">
+            <div class="participants-header">
+                <span>🟪</span>
+                <span>Farcaster Participants</span>
+                <span id="fidCount">(0 FIDs)</span>
+            </div>
+            <div class="fid-list" id="fidList">
+                <div style="text-align: center; color: rgba(255, 255, 255, 0.6); font-size: 14px; padding: 20px;">
+                    Waiting for Farcaster users to join...
+                </div>
+            </div>
+        </div>
+
+        <div class="player-count">
+            <span class="player-counter" id="playerCount">0 / 200 Players</span>
+        </div>
+
+        <div class="game-state" id="gameState">
+            <span class="state-waiting">Waiting for players to join...</span>
+        </div>
+
+        <!-- Join Game Section -->
+        <div id="joinSection" class="join-section">
+            <input type="text" id="usernameInput" class="username-input" placeholder="Enter your username" maxlength="20">
+            <br>
+            <button class="join-btn" onclick="joinGame()">Join Battle</button>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area" id="gameArea" style="display: none;">
+            <div class="block-info">
+                <div class="block-number" id="blockNumber">Loading...</div>
+                <div class="block-details" id="blockDetails">Connecting to mempool.space...</div>
+                <div class="block-status status-waiting" id="blockStatus">Waiting for next block</div>
+            </div>
+
+            <div class="mempool-info" id="mempoolInfo" style="display: none;">
+                <div class="mempool-stat">Pending TX: <strong id="mempoolCount">-</strong></div>
+                <div class="mempool-stat">Fee Rate: <strong id="feeRate">- sat/vB</strong></div>
+                <div class="mempool-stat">Size: <strong id="mempoolSize">- MB</strong></div>
+            </div>
+
+            <div class="guess-section" id="guessSection" style="display: none;">
+                <input type="number" id="guessInput" class="guess-input" placeholder="Your guess..." min="1" max="10000">
+                <br>
+                <button class="submit-btn" id="submitBtn" onclick="submitGuess()">Submit Guess</button>
+                <div style="margin-top: 12px; font-size: 12px; color: rgba(255, 255, 255, 0.6);">
+                    Guess how many transactions will be in the next block!
+                </div>
+            </div>
+
+            <div class="waiting-area" id="waitingArea">
+                <div class="loading-spinner"></div>
+                <div>Waiting for next block to be mined...</div>
+                <div style="font-size: 12px; margin-top: 8px; color: rgba(255, 255, 255, 0.6);">
+                    Battle ends when the block is found
+                </div>
+            </div>
+
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+
+        <!-- Champions Section -->
+        <div class="champions-section" id="championsSection" style="display: none;">
+            <div class="champions-title">Battle Champions</div>
+            <div class="champion-card champion1" id="champion1">
+                <div class="champion-info">
+                    <div class="champion-rank rank1">1</div>
+                    <div class="champion-name" id="champion1Name">-</div>
+                </div>
+                <div class="champion-stats">
+                    <div>Guess: <span id="champion1Guess">-</span></div>
+                    <div class="accuracy">Accuracy: <span id="champion1Accuracy">-</span></div>
+                </div>
+            </div>
+            <div class="champion-card champion2" id="champion2">
+                <div class="champion-info">
+                    <div class="champion-rank rank2">2</div>
+                    <div class="champion-name" id="champion2Name">-</div>
+                </div>
+                <div class="champion-stats">
+                    <div>Guess: <span id="champion2Guess">-</span></div>
+                    <div class="accuracy">Accuracy: <span id="champion2Accuracy">-</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Players List -->
+        <div class="players-list" id="playersList" style="display: none;">
+            <div class="players-header">Active Players</div>
+            <div id="playersContainer"></div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="leaderboard" id="leaderboard" style="display: none;">
+            <div class="leaderboard-header">Final Rankings</div>
+            <div id="leaderboardContainer"></div>
+        </div>
+
+        <button class="new-round-btn" id="newRoundBtn" onclick="startNewBattle()" style="display: none;">
+            Start New Battle
+        </button>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value" id="totalPlayers">0</div>
+                <div class="stat-label">Players</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="battlesWon">0</div>
+                <div class="stat-label">Battles Won</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="totalBattles">0</div>
+                <div class="stat-label">Total Battles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="winRate">0%</div>
+                <div class="stat-label">Win Rate</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gameState = {
+            phase: 'joining', // joining, guessing, waiting, results
+            players: [],
+            farcasterUsers: [], // FID participants from Farcaster
+            currentUser: null,
+            currentBlockHeight: 0,
+            actualTxCount: 0,
+            maxPlayers: 200,
+            mempoolData: null,
+            blockCheckInterval: null,
+            jackpotAmount: 12500,
+            userStats: {
+                battlesWon: parseInt(localStorage.getItem('btc_battles_won') || '0'),
+                totalBattles: parseInt(localStorage.getItem('btc_total_battles') || '0')
+            }
+        };
+
+        // Farcaster integration functions
+        async function fetchFarcasterParticipants() {
+            // Simulate fetching FID participants from Farcaster API
+            // In real implementation, this would connect to Farcaster's API
+            try {
+                // Mock FID data - replace with actual Farcaster API call
+                const mockFIDs = generateMockFIDs();
+                gameState.farcasterUsers = mockFIDs;
+                updateFarcasterDisplay();
+                return mockFIDs;
+            } catch (error) {
+                console.error('Error fetching Farcaster participants:', error);
+                showError('Failed to connect to Farcaster. Using demo mode.');
+                return [];
+            }
+        }
+
+        function generateMockFIDs() {
+            const farcasterUsernames = [
+                'miggles.eth', 'cryptodev', 'bitcoinmaxi', 'degenape', 'nftcollector',
+                'defifarmer', 'memecoin', 'hodlgang', 'wagmi', 'gm_everyday',
+                'onchain_life', 'layer2native', 'basedbuilder', 'frames_fan'
+            ];
+            
+            const participants = [];
+            const numParticipants = Math.floor(Math.random() * 12) + 3; // 3-15 participants
+            
+            for (let i = 0; i < numParticipants; i++) {
+                const fid = Math.floor(Math.random() * 50000) + 1000; // Random FID
+                const username = farcasterUsernames[Math.floor(Math.random() * farcasterUsernames.length)];
+                const guess = Math.floor(Math.random() * 4000) + 500; // Random guess between 500-4500
+                
+                participants.push({
+                    fid: fid,
+                    username: username + (Math.random() > 0.7 ? Math.floor(Math.random() * 100) : ''),
+                    guess: guess,
+                    timestamp: Date.now() - Math.random() * 3600000 // Within last hour
+                });
+            }
+            
+            return participants.sort((a, b) => a.timestamp - b.timestamp);
+        }
+
+        function updateFarcasterDisplay() {
+            const fidCount = document.getElementById('fidCount');
+            const fidList = document.getElementById('fidList');
+            
+            fidCount.textContent = `(${gameState.farcasterUsers.length} FIDs)`;
+            
+            if (gameState.farcasterUsers.length === 0) {
+                fidList.innerHTML = `
+                    <div style="text-align: center; color: rgba(255, 255, 255, 0.6); font-size: 14px; padding: 20px;">
+                        Waiting for Farcaster users to join...
+                    </div>
+                `;
+                return;
+            }
+            
+            fidList.innerHTML = '';
+            gameState.farcasterUsers.forEach(user => {
+                const item = document.createElement('div');
+                item.className = 'fid-item';
+                item.innerHTML = `
+                    <div class="fid-user">
+                        <span class="fid-number">FID ${user.fid}</span>
+                        <span>${user.username}</span>
+                    </div>
+                    <span class="fid-guess">${user.guess.toLocaleString()} TX</span>
+                `;
+                fidList.appendChild(item);
+            });
+        }
+
+        function updateJackpot() {
+            // Update jackpot amount in the UI
+            document.querySelector('.jackpot-amount').textContent = `${gameState.jackpotAmount.toLocaleString()} $SECONDS`;
+        }
+        async function fetchMempoolData() {
+            try {
+                const response = await fetch('https://mempool.space/api/mempool');
+                const data = await response.json();
+                gameState.mempoolData = data;
+                updateMempoolDisplay();
+                return data;
+            } catch (error) {
+                console.error('Error fetching mempool data:', error);
+                showError('Failed to connect to mempool.space. Using demo mode.');
+                return null;
+            }
+        }
+
+        async function fetchLatestBlockHeight() {
+            try {
+                const response = await fetch('https://mempool.space/api/blocks/tip/height');
+                const height = await response.json();
+                return height;
+            } catch (error) {
+                console.error('Error fetching block height:', error);
+                return 860000; // Fallback height
+            }
+        }
+
+        async function fetchBlockData(height) {
+            try {
+                const response = await fetch(`https://mempool.space/api/block-height/${height}`);
+                if (!response.ok) return null;
+                
+                const blockHash = await response.text();
+                const blockResponse = await fetch(`https://mempool.space/api/block/${blockHash}`);
+                const blockData = await blockResponse.json();
+                
+                return {
+                    height: blockData.height,
+                    txCount: blockData.tx_count,
+                    timestamp: new Date(blockData.timestamp * 1000),
+                    hash: blockData.id,
+                    size: blockData.size,
+                    weight: blockData.weight
+                };
+            } catch (error) {
+                console.error('Error fetching block data:', error);
+                return null;
+            }
+        }
+
+        function updateMempoolDisplay() {
+            if (!gameState.mempoolData) return;
+            
+            const mempoolInfo = document.getElementById('mempoolInfo');
+            const mempoolCount = document.getElementById('mempoolCount');
+            const feeRate = document.getElementById('feeRate');
+            const mempoolSize = document.getElementById('mempoolSize');
+            
+            mempoolCount.textContent = gameState.mempoolData.count.toLocaleString();
+            feeRate.textContent = Math.round(gameState.mempoolData.feeHistogram[0][0]);
+            mempoolSize.textContent = (gameState.mempoolData.vsize / 1000000).toFixed(1);
+            
+            mempoolInfo.style.display = 'block';
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function updatePlayerCount() {
+            const count = gameState.players.length;
+            document.getElementById('playerCount').textContent = `${count} / ${gameState.maxPlayers} Players`;
+            document.getElementById('totalPlayers').textContent = count;
+        }
+
+        function updateStats() {
+            const winRate = gameState.userStats.totalBattles > 0 ? 
+                Math.round((gameState.userStats.battlesWon / gameState.userStats.totalBattles) * 100) : 0;
+            document.getElementById('battlesWon').textContent = gameState.userStats.battlesWon;
+            document.getElementById('totalBattles').textContent = gameState.userStats.totalBattles;
+            document.getElementById('winRate').textContent = winRate + '%';
+        }
+
+        function joinGame() {
+            const username = document.getElementById('usernameInput').value.trim();
+            if (!username) {
+                alert('Please enter a username!');
+                return;
+            }
+            
+            if (gameState.players.length >= gameState.maxPlayers) {
+                alert('Battle is full! Wait for the next round.');
+                return;
+            }
+
+            if (gameState.players.find(p => p.name === username)) {
+                alert('Username already taken!');
+                return;
+            }
+
+            // Add player
+            const player = {
+                id: Date.now() + Math.random(),
+                name: username,
+                guess: null,
+                accuracy: 0,
+                isCurrentUser: true
+            };
+
+            gameState.players.push(player);
+            gameState.currentUser = player;
+
+            // Hide join section, show game area
+            document.getElementById('joinSection').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('playersList').style.display = 'block';
+
+            updatePlayerCount();
+            updatePlayersList();
+            
+            // Fetch Farcaster participants
+            await fetchFarcasterParticipants();
+            
+            // Simulate other players joining
+            simulatePlayersJoining();
+            
+            // Start fetching real-time data and begin guessing phase
+            setTimeout(startGuessingPhase, 3000);
+        }
+
+        function simulatePlayersJoining() {
+            const usernames = [
+                'CryptoKing', 'BitcoinBull', 'SatoshiFan', 'DiamondHands', 'ToTheMoon',
+                'HODLer', 'DegenApe', 'WhaleWatcher', 'ChartMaster', 'BlockExplorer',
+                'HashHunter', 'MiningMachine', 'CoinCollector', 'TradingBot', 'AlphaSniffer',
+                'BitMiner', 'CryptoNinja', 'BlockHunter', 'TxCounter', 'MempoolWatcher'
+            ];
+            
+            const playersToAdd = Math.floor(Math.random() * 20) + 10; // 10-30 AI players
+            
+            let added = 0;
+            const addPlayerInterval = setInterval(() => {
+                if (added >= playersToAdd || gameState.players.length >= gameState.maxPlayers) {
+                    clearInterval(addPlayerInterval);
+                    return;
+                }
+                
+                const randomName = usernames[Math.floor(Math.random() * usernames.length)] + Math.floor(Math.random() * 1000);
+                const player = {
+                    id: Date.now() + Math.random(),
+                    name: randomName,
+                    guess: null,
+                    accuracy: 0,
+                    isCurrentUser: false
+                };
+                
+                gameState.players.push(player);
+                updatePlayerCount();
+                updatePlayersList();
+                added++;
+            }, 300);
+        }
+
+        function updatePlayersList() {
+            const container = document.getElementById('playersContainer');
+            container.innerHTML = '';
+            
+            gameState.players.forEach(player => {
+                const item = document.createElement('div');
+                item.className = 'player-item';
+                item.innerHTML = `
+                    <span class="player-name">${player.name}${player.isCurrentUser ? ' (You)' : ''}</span>
+                    <span class="player-guess">${player.guess ? player.guess.toLocaleString() : 'Waiting...'}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        async function startGuessingPhase() {
+            gameState.phase = 'guessing';
+            document.getElementById('gameState').innerHTML = '<span class="state-active">Battle in progress - Submit your guess!</span>';
+            
+            // Fetch current blockchain state
+            await initializeBlockchain();
+            
+            document.getElementById('guessSection').style.display = 'block';
+            document.getElementById('waitingArea').style.display = 'none';
+            
+            // Simulate AI players making guesses based on mempool data
+            simulateAIGuesses();
+            
+            // Start monitoring for new blocks
+            startBlockMonitoring();
+        }
+
+        async function initializeBlockchain() {
+            try {
+                // Get current block height
+                const latestHeight = await fetchLatestBlockHeight();
+                gameState.currentBlockHeight = latestHeight;
+                
+                // Fetch mempool data
+                await fetchMempoolData();
+                
+                // Update display
+                updateBlockDisplay();
+                
+            } catch (error) {
+                console.error('Error initializing blockchain data:', error);
+                showError('Connection issues. Using demo mode.');
+                // Fallback to demo data
+                gameState.currentBlockHeight = 860000 + Math.floor(Math.random() * 100);
+                gameState.mempoolData = {
+                    count: 15000 + Math.floor(Math.random() * 20000),
+                    vsize: 50000000 + Math.floor(Math.random() * 100000000),
+                    feeHistogram: [[25, 0]]
+                };
+                updateBlockDisplay();
+                updateMempoolDisplay();
+            }
+        }
+
+        function updateBlockDisplay() {
+            const nextBlockHeight = gameState.currentBlockHeight + 1;
+            document.getElementById('blockNumber').textContent = `Next Block #${nextBlockHeight.toLocaleString()}`;
+            document.getElementById('blockDetails').textContent = 
+                `Current: Block #${gameState.currentBlockHeight.toLocaleString()} • Monitoring mempool.space`;
+        }
+
+        function simulateAIGuesses() {
+            gameState.players.forEach(player => {
+                if (!player.isCurrentUser) {
+                    // AI makes intelligent guesses based on mempool data
+                    let baseGuess = 2000; // Default guess
+                    
+                    if (gameState.mempoolData) {
+                        // Base guess on mempool size and typical block capacity
+                        const mempoolTx = gameState.mempoolData.count;
+                        const typical = Math.min(4000, Math.max(1000, mempoolTx * 0.2));
+                        baseGuess = typical + (Math.random() - 0.5) * 1000;
+                    } else {
+                        baseGuess = 1500 + Math.random() * 2000;
+                    }
+                    
+                    player.guess = Math.floor(Math.max(1, baseGuess));
+                }
+            });
+            
+            setTimeout(updatePlayersList, 1000);
+        }
+
+        function startBlockMonitoring() {
+            // Check for new blocks every 10 seconds
+            gameState.blockCheckInterval = setInterval(async () => {
+                try {
+                    const currentHeight = await fetchLatestBlockHeight();
+                    
+                    // Update mempool data
+                    await fetchMempoolData();
+                    
+                    if (currentHeight > gameState.currentBlockHeight) {
+                        // New block found!
+                        console.log('New block detected:', currentHeight);
+                        await endBattle(currentHeight);
+                    } else {
+                        // Update status
+                        document.getElementById('blockStatus').textContent = 'Monitoring for new block...';
+                        document.getElementById('blockStatus').className = 'block-status status-waiting';
+                    }
+                } catch (error) {
+                    console.error('Error monitoring blocks:', error);
+                    showError('Connection lost. Retrying...');
+                }
+            }, 10000); // Check every 10 seconds
+        }
+
+        function submitGuess() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            
+            if (!guess || guess < 1) {
+                alert('Please enter a valid number!');
+                return;
+            }
+
+            if (gameState.currentUser) {
+                gameState.currentUser.guess = guess;
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('guessInput').disabled = true;
+                updatePlayersList();
+                
+                document.getElementById('guessSection').style.display = 'none';
+                document.getElementById('waitingArea').style.display = 'block';
+            }
+        }
+
+        async function endBattle(newBlockHeight) {
+            clearInterval(gameState.blockCheckInterval);
+            gameState.phase = 'results';
+            
+            try {
+                // Fetch the new block data
+                const newBlockData = await fetchBlockData(newBlockHeight);
+                
+                if (newBlockData) {
+                    gameState.actualTxCount = newBlockData.txCount;
+                    
+                    // Update block info to show the mined block
+                    document.getElementById('blockNumber').textContent = `Block #${newBlockData.height.toLocaleString()} Mined!`;
+                    document.getElementById('blockDetails').textContent = 
+                        `${newBlockData.txCount.toLocaleString()} transactions • ${newBlockData.size.toLocaleString()} bytes`;
+                    document.getElementById('blockStatus').textContent = 'Block confirmed';
+                    document.getElementById('blockStatus').className = 'block-status status-mined';
+                } else {
+                    // Fallback if we can't fetch block data
+                    gameState.actualTxCount = 1500 + Math.floor(Math.random() * 2500);
+                    document.getElementById('blockDetails').textContent = 
+                        `Estimated ${gameState.actualTxCount.toLocaleString()} transactions`;
+                }
+            } catch (error) {
+                console.error('Error fetching new block:', error);
+                gameState.actualTxCount = 1500 + Math.floor(Math.random() * 2500);
+            }
+            
+            // Calculate accuracies for all participants (including Farcaster users)
+            const allParticipants = [...gameState.players, ...gameState.farcasterUsers.map(fid => ({
+                ...fid,
+                name: `${fid.username} (FID ${fid.fid})`,
+                isFarcasterUser: true,
+                accuracy: Math.abs(fid.guess - gameState.actualTxCount)
+            }))];
+            
+            // Calculate accuracies for regular players
+            gameState.players.forEach(player => {
+                if (player.guess) {
+                    const difference = Math.abs(player.guess - gameState.actualTxCount);
+                    player.accuracy = difference;
+                } else {
+                    player.accuracy = Infinity;
+                }
+            });
+            
+            // Sort all participants by accuracy (lower is better)
+            allParticipants.sort((a, b) => a.accuracy - b.accuracy);
+            gameState.players.sort((a, b) => a.accuracy - b.accuracy);
+            
+            // Update jackpot for next round
+            gameState.jackpotAmount += 250;
+            updateJackpot();
+            
+            // Update user stats
+            if (gameState.currentUser) {
+                gameState.userStats.totalBattles++;
+                const userRank = gameState.players.findIndex(p => p.isCurrentUser) + 1;
+                if (userRank <= 2) {
+                    gameState.userStats.battlesWon++;
+                }
+                try {
+                    localStorage.setItem('btc_battles_won', gameState.userStats.battlesWon.toString());
+                    localStorage.setItem('btc_total_battles', gameState.userStats.totalBattles.toString());
+                } catch (e) {
+                    console.log('localStorage not available, stats will reset');
+                }
+            }
+            
+            showResults();
+        }
+
+        function showResults() {
+            document.getElementById('gameState').innerHTML = '<span class="state-results">Battle Complete!</span>';
+            document.getElementById('waitingArea').style.display = 'none';
+            document.getElementById('guessSection').style.display = 'none';
+            
+            // Show champions (including Farcaster users)
+            if (allParticipants.length > 0) {
+                document.getElementById('championsSection').style.display = 'block';
+                
+                const champion1 = allParticipants[0];
+                const champion2 = allParticipants[1] || null;
+                
+                // Champion 1
+                const champ1Name = champion1.isFarcasterUser ? `${champion1.username} (Farcaster)` : champion1.name;
+                document.getElementById('champion1Name').textContent = champ1Name;
+                document.getElementById('champion1Guess').textContent = champion1.guess ? champion1.guess.toLocaleString() : 'No guess';
+                const acc1 = champion1.accuracy !== Infinity ? champion1.accuracy : 'N/A';
+                document.getElementById('champion1Accuracy').textContent = acc1 === 'N/A' ? acc1 : `±${acc1}`;
+                
+                // Champion 2
+                if (champion2) {
+                    const champ2Name = champion2.isFarcasterUser ? `${champion2.username} (Farcaster)` : champion2.name;
+                    document.getElementById('champion2Name').textContent = champ2Name;
+                    document.getElementById('champion2Guess').textContent = champion2.guess ? champion2.guess.toLocaleString() : 'No guess';
+                    const acc2 = champion2.accuracy !== Infinity ? champion2.accuracy : 'N/A';
+                    document.getElementById('champion2Accuracy').textContent = acc2 === 'N/A' ? acc2 : `±${acc2}`;
+                } else {
+                    document.getElementById('champion2Name').textContent = 'No second place';
+                    document.getElementById('champion2Guess').textContent = '-';
+                    document.getElementById('champion2Accuracy').textContent = '-';
+                }
+            }
+            
+            // Show full leaderboard with all participants
+            showLeaderboard(allParticipants);
+            
+            document.getElementById('newRoundBtn').style.display = 'block';
+            updateStats();
+            
+            // Update current block height for next round
+            gameState.currentBlockHeight++;
+        }
+
+        function showLeaderboard(allParticipants = null) {
+            const container = document.getElementById('leaderboardContainer');
+            container.innerHTML = '';
+            
+            const participants = allParticipants || gameState.players;
+            
+            participants.slice(0, 15).forEach((participant, index) => {
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                
+                const rank = index + 1;
+                const accuracy = participant.accuracy !== Infinity ? `±${participant.accuracy}` : 'No guess';
+                const guess = participant.guess ? participant.guess.toLocaleString() : '-';
+                
+                let displayName = participant.name;
+                if (participant.isFarcasterUser) {
+                    displayName = `🟪 ${participant.username}`;
+                } else if (participant.isCurrentUser) {
+                    displayName = `${participant.name} (You)`;
+                }
+                
+                item.innerHTML = `
+                    <span class="player-rank">#${rank}</span>
+                    <span>${displayName}</span>
+                    <span>${guess}</span>
+                    <span>${accuracy}</span>
+                `;
+                container.appendChild(item);
+            });
+            
+            document.getElementById('leaderboard').style.display = 'block';
+        }
+
+        function startNewBattle() {
+            // Reset game state
+            gameState.players = [];
+            gameState.farcasterUsers = [];
+            gameState.currentUser = null;
+            gameState.phase = 'joining';
+            gameState.mempoolData = null;
+            
+            // Clear any intervals
+            if (gameState.blockCheckInterval) {
+                clearInterval(gameState.blockCheckInterval);
+            }
+            
+            // Reset UI
+            document.getElementById('joinSection').style.display = 'block';
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('playersList').style.display = 'none';
+            document.getElementById('championsSection').style.display = 'none';
+            document.getElementById('leaderboard').style.display = 'none';
+            document.getElementById('newRoundBtn').style.display = 'none';
+            document.getElementById('mempoolInfo').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            document.getElementById('usernameInput').value = '';
+            document.getElementById('guessInput').value = '';
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('guessInput').disabled = false;
+            
+            document.getElementById('gameState').innerHTML = '<span class="state-waiting">Waiting for players to join...</span>';
+            
+            updatePlayerCount();
+            updateJackpot();
+        }
+
+        // Auto-refresh mempool data during waiting phase
+        function startMempoolUpdates() {
+            const mempoolUpdateInterval = setInterval(async () => {
+                if (gameState.phase === 'guessing' || gameState.phase === 'waiting') {
+                    await fetchMempoolData();
+                } else {
+                    clearInterval(mempoolUpdateInterval);
+                }
+            }, 30000); // Update every 30 seconds
+        }
+
+        // Initialize game
+        function initGame() {
+            console.log('Initializing $Seconds Bitcoin TX Battle Royale for Farcaster...');
+            updateStats();
+            updatePlayerCount();
+            updateJackpot();
+            
+            // Initialize with some Farcaster participants
+            fetchFarcasterParticipants();
+            
+            // Add enter key support
+            document.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    if (gameState.phase === 'joining' && document.getElementById('usernameInput').value) {
+                        joinGame();
+                    } else if (gameState.phase === 'guessing' && document.getElementById('guessInput').value) {
+                        submitGuess();
+                    }
+                }
+            });
+
+            // Start mempool updates
+            startMempoolUpdates();
+        }
+
+        // Handle page visibility changes to pause/resume monitoring
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Page is hidden, pause monitoring
+                if (gameState.blockCheckInterval) {
+                    clearInterval(gameState.blockCheckInterval);
+                }
+            } else {
+                // Page is visible, resume monitoring if in active phase
+                if (gameState.phase === 'waiting' && !gameState.blockCheckInterval) {
+                    startBlockMonitoring();
+                }
+            }
+        });
+
+        initGame();
+    </script>
+</body>
+</html>
