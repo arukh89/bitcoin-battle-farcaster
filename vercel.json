@@ -20,10 +20,5 @@
         {"key": "Access-Control-Allow-Headers", "value": "Content-Type"}
       ]
     }
-  ],
-  "rewrites": [
-    {"source": "/battle", "destination": "/battle/index.html"},
-    {"source": "/stats", "destination": "/stats/index.html"},
-    {"source": "/leaderboard", "destination": "/leaderboard/index.html"}
   ]
 }
