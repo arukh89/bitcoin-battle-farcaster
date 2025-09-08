@@ -45,7 +45,7 @@ async function handleJoinBattle(req, res, fid) {
           <meta property="fc:frame" content="vNext" />
           <meta property="fc:frame:title" content="Bitcoin Battle - Block #${nextBlock}" />
           <meta property="fc:frame:description" content="Make your prediction for block #${nextBlock}" />
-          <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/battle-frame.png" />
+          <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/og" />
           <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
           <meta property="fc:frame:button:1" content="Submit Guess" />
           <meta property="fc:frame:button:1:action" content="post" />
@@ -74,7 +74,7 @@ async function handleViewStats(req, res, fid) {
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:title" content="Bitcoin Battle Stats" />
         <meta property="fc:frame:description" content="Your battle statistics" />
-        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/stats-frame.png" />
+        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/og" />
         <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         <meta property="fc:frame:button:1" content="🎮 New Battle" />
         <meta property="fc:frame:button:1:action" content="post" />
@@ -99,7 +99,7 @@ async function handleDefault(req, res) {
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:title" content="$Seconds Bitcoin TX Battle Royale" />
         <meta property="fc:frame:description" content="Predict Bitcoin transactions and win $Seconds tokens!" />
-        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/bitcoin-battle-frame.png" />
+        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/og" />
         <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         <meta property="fc:frame:button:1" content="🎮 Join Battle" />
         <meta property="fc:frame:button:1:action" content="post" />
@@ -132,7 +132,7 @@ async function handleError(res, message) {
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:title" content="Bitcoin Battle - Error" />
         <meta property="fc:frame:description" content="${message}" />
-        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/error-frame.png" />
+        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/og" />
         <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         <meta property="fc:frame:button:1" content="🔄 Try Again" />
         <meta property="fc:frame:button:1:action" content="post" />
