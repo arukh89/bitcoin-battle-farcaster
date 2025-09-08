@@ -19,6 +19,13 @@
         {"key": "Access-Control-Allow-Methods", "value": "POST, GET, OPTIONS"},
         {"key": "Access-Control-Allow-Headers", "value": "Content-Type"}
       ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {"key": "X-Frame-Options", "value": "ALLOWALL"},
+        {"key": "Content-Security-Policy", "value": "frame-ancestors *;"}
+      ]
     }
   ]
 }
