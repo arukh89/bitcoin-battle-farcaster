@@ -1,9 +1,10 @@
 {
   "accountAssociation": {
-    "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDEwNTM2NTcxNDVlYTJkNTc5NjkxYTE0NmM3ZWE0Y2ZhZTM3ZDI3ZmFlIn0",
+    "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDE1MzY1NzE0NWVBMmQ1Nzk2OTFhMTQ2YzdFYTRDRkFFMzdEMjdGYWUifQ",
     "payload": "eyJkb21haW4iOiJiaXRjb2luLWJhdHRsZS1mYXJjYXN0ZXItamVxeC52ZXJjZWwuYXBwIn0",
-    "signature": "REPLACE_WITH_COMPLETE_SIGNATURE"
-  },
+    "signature": "MHg0ODc5Y2U4OWYyMDA5OGE3OTVkNjM5NzhmN2ZmMTQwNTEzMjYwYTYxOGZhMjRkOGViYTIyODcyYWMyMGM5YTRkN2NjMzljZTY3YWU5MWUyMjlmOGMxOTZhZmNhMWI3MDY1MjA1YjAwMTAwZDJhMTYwM2M3NmI3MDBkNmUxZjY5MzFi"
+  }
+},
   "miniapp": {
     "version": "1",
     "name": "Bitcoin TX Battle Royale",
