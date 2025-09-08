@@ -1,30 +1,29 @@
 {
   "accountAssociation": {
-    "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweGYxOWFlNWY4ZTA3MzcxYjMwZDAyYThkMDViOTZmZmMzOTAzMDRiMmUifQ",
+    "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDEwOUQwMkQyNUQwRDA4MmY3RjJFMDRiNDgzOGNFZmUyNzFiMmRhQjA5In0",
     "payload": "eyJkb21haW4iOiJiaXRjb2luLWJhdHRsZS1mYXJjYXN0ZXItamVxeC52ZXJjZWwuYXBwIn0",
-    "signature": "0x..."
+    "signature": "REPLACE_WITH_COMPLETE_SIGNATURE"
   },
-  "version": "1",
-  "name": "Bitcoin TX Battle Royale",
-  "iconUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/icon",
-  "homeUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/",
-  "splashImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/splash",
-  "splashBackgroundColor": "#1a1a1a",
-  "subtitle": "Predict Bitcoin transactions and win $Seconds tokens",
-  "description": "Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block. Winners earn $Seconds tokens!",
-  "primaryCategory": "games",
-  "tags": [
-    "bitcoin",
-    "blockchain", 
-    "games",
-    "prediction",
-    "crypto",
-    "competition",
-    "battle-royale",
-    "defi"
-  ],
-  "heroImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og",
-  "ogTitle": "Bitcoin TX Battle Royale",
-  "ogDescription": "Predict Bitcoin block transactions and win $Seconds tokens in this real-time blockchain battle royale!",
-  "ogImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og"
+  "miniapp": {
+    "version": "1",
+    "name": "Bitcoin TX Battle Royale",
+    "iconUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/icon",
+    "homeUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/",
+    "splashImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/splash",
+    "splashBackgroundColor": "#1a1a1a",
+    "subtitle": "Predict Bitcoin transactions and win $Seconds tokens",
+    "description": "Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block. Winners earn $Seconds tokens!",
+    "primaryCategory": "games",
+    "tags": [
+      "bitcoin",
+      "blockchain", 
+      "games",
+      "prediction",
+      "crypto"
+    ],
+    "heroImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og",
+    "ogTitle": "Bitcoin TX Battle Royale",
+    "ogDescription": "Predict Bitcoin block transactions and win $Seconds tokens in this real-time blockchain battle royale!",
+    "ogImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og"
+  }
 }
