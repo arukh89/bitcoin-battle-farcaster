@@ -9,7 +9,8 @@
       "source": "/.well-known/farcaster.json",
       "headers": [
         {"key": "Access-Control-Allow-Origin", "value": "*"},
-        {"key": "Content-Type", "value": "application/json"}
+        {"key": "Content-Type", "value": "application/json"},
+        {"key": "Cache-Control", "value": "public, max-age=3600"}
       ]
     },
     {
@@ -26,6 +27,18 @@
         {"key": "X-Frame-Options", "value": "ALLOWALL"},
         {"key": "Content-Security-Policy", "value": "frame-ancestors *;"}
       ]
+    },
+    {
+      "source": "/api/og",
+      "headers": [
+        {"key": "Cache-Control", "value": "public, max-age=3600"},
+        {"key": "Content-Type", "value": "image/svg+xml"}
+      ]
     }
+  ],
+  "rewrites": [
+    {"source": "/battle", "destination": "/battle/index.html"},
+    {"source": "/stats", "destination": "/stats/index.html"},
+    {"source": "/leaderboard", "destination": "/leaderboard/index.html"}
   ]
 }
