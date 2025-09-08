@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Basic Meta Tags -->
-    <title>Seconds Bitcoin TX Battle Royale</title>
+    <title>Bitcoin TX Battle Royale</title>
     <meta name="description" content="Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block.">
     
     <!-- Farcaster Frame Meta Tags -->
     <meta property="fc:frame" content="vNext">
-    <meta property="fc:frame:title" content="$Seconds Bitcoin TX Battle Royale">
-    <meta property="fc:frame:description" content="Predict Bitcoin transactions and win $Seconds tokens!">
-    <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-battle-hero.png">
+    <meta property="fc:frame:title" content="Bitcoin TX Battle Royale">
+    <meta property="fc:frame:description" content="Predict Bitcoin transactions and win tokens!">
+    <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og">
     <meta property="fc:frame:image:aspect_ratio" content="1.91:1">
     <meta property="fc:frame:button:1" content="🎮 Join Battle">
     <meta property="fc:frame:button:1:action" content="post">
@@ -21,17 +21,23 @@
     <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/frame">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Seconds Bitcoin TX Battle Royale">
+    <meta property="og:title" content="Bitcoin TX Battle Royale">
     <meta property="og:description" content="Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block.">
-    <meta property="og:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-battle-hero.png">
+    <meta property="og:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og">
     <meta property="og:url" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bitcoin TX Battle Royale">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Seconds Bitcoin TX Battle Royale">
+    <meta name="twitter:title" content="Bitcoin TX Battle Royale">
     <meta name="twitter:description" content="Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block.">
-    <meta name="twitter:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-battle-hero.png">
+    <meta name="twitter:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og">
+    
+    <!-- Additional Frame Headers -->
+    <meta name="farcaster:frame" content="vNext">
+    <meta name="farcaster:frame:button:1:action" content="post">
+    <meta name="farcaster:frame:button:1:target" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/frame">
 
     <style>
         body {
@@ -261,7 +267,8 @@
             <p>🔗 Built for Farcaster • ⚡ Powered by $Seconds • 📊 Real-time Bitcoin data via mempool.space</p>
             <p style="margin-top: 10px; font-size: 0.8em;">
                 <a href="/.well-known/farcaster.json" style="color: #f7931a;">View Farcaster Config</a> | 
-                <a href="/api/frame" style="color: #f7931a;">Frame API</a>
+                <a href="/api/frame" style="color: #f7931a;">Frame API</a> |
+                <a href="/api/og" style="color: #f7931a;">OG Image</a>
             </p>
         </div>
     </div>
@@ -422,6 +429,14 @@
         if (urlParams.get('test') === 'frame') {
             updateGameStatus('🔮 Frame test mode activated', 'success');
         }
+        
+        // Debug Frame validation
+        console.log('Frame Meta Tags:', {
+            frame: document.querySelector('meta[property="fc:frame"]')?.content,
+            image: document.querySelector('meta[property="fc:frame:image"]')?.content,
+            postUrl: document.querySelector('meta[property="fc:frame:post_url"]')?.content,
+            button1: document.querySelector('meta[property="fc:frame:button:1"]')?.content
+        });
     </script>
 </body>
 </html>
