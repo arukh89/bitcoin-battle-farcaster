@@ -3,22 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Battle Royale - Farcaster</title>
-    <meta property="og:title" content="Bitcoin Battle Royale">
-    <meta property="og:description" content="Real-time Bitcoin block prediction game with $Seconds token rewards">
-    <meta property="og:image" content="/api/og">
+    
+    <!-- Basic Meta Tags -->
+    <title>Seconds Bitcoin TX Battle Royale</title>
+    <meta name="description" content="Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block.">
+    
+    <!-- Farcaster Frame Meta Tags -->
     <meta property="fc:frame" content="vNext">
-    <meta property="fc:frame:image" content="/api/og">
-    <meta property="fc:frame:button:1" content="🎯 Predict Next Block">
-    <meta property="fc:frame:button:2" content="📊 View Leaderboard">
-    <meta property="fc:frame:button:3" content="💰 Check Rewards">
-    <meta property="fc:frame:post_url" content="/api/frame">
+    <meta property="fc:frame:title" content="$Seconds Bitcoin TX Battle Royale">
+    <meta property="fc:frame:description" content="Predict Bitcoin transactions and win $Seconds tokens!">
+    <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-battle-hero.png">
+    <meta property="fc:frame:image:aspect_ratio" content="1.91:1">
+    <meta property="fc:frame:button:1" content="🎮 Join Battle">
+    <meta property="fc:frame:button:1:action" content="post">
+    <meta property="fc:frame:button:2" content="📊 View Stats">
+    <meta property="fc:frame:button:2:action" content="post">
+    <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/frame">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Seconds Bitcoin TX Battle Royale">
+    <meta property="og:description" content="Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block.">
+    <meta property="og:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-battle-hero.png">
+    <meta property="og:url" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Seconds Bitcoin TX Battle Royale">
+    <meta name="twitter:description" content="Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block.">
+    <meta name="twitter:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-battle-hero.png">
+
     <style>
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             color: white;
             min-height: 100vh;
         }
@@ -29,57 +49,77 @@
         }
         .header {
             margin-bottom: 40px;
+            padding: 20px;
         }
         .title {
             font-size: 3em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: #f7931a;
         }
         .subtitle {
             font-size: 1.2em;
             opacity: 0.9;
+            margin-bottom: 20px;
         }
         .game-area {
-            background: rgba(255,255,255,0.1);
+            background: rgba(247, 147, 26, 0.1);
+            border: 1px solid rgba(247, 147, 26, 0.3);
             border-radius: 20px;
             padding: 30px;
             margin: 20px 0;
             backdrop-filter: blur(10px);
         }
         .current-block {
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+        }
+        .current-block .number {
+            font-size: 1.5em;
+            color: #f7931a;
+            font-weight: bold;
         }
         .prediction-form {
-            margin: 20px 0;
+            margin: 30px 0;
         }
         .input-field {
             padding: 15px;
             font-size: 1.2em;
-            border: none;
+            border: 2px solid rgba(247, 147, 26, 0.5);
             border-radius: 10px;
             margin: 10px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
             color: white;
             text-align: center;
+            width: 200px;
         }
         .input-field::placeholder {
             color: rgba(255,255,255,0.7);
         }
+        .input-field:focus {
+            outline: none;
+            border-color: #f7931a;
+            box-shadow: 0 0 10px rgba(247, 147, 26, 0.3);
+        }
         .btn {
-            background: #ff6b6b;
+            background: #f7931a;
             border: none;
             padding: 15px 30px;
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: white;
             border-radius: 10px;
             cursor: pointer;
             margin: 10px;
             transition: all 0.3s ease;
+            font-weight: bold;
         }
         .btn:hover {
-            background: #ff5252;
+            background: #e8851d;
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(247, 147, 26, 0.4);
         }
         .stats {
             display: grid;
@@ -92,6 +132,11 @@
             padding: 20px;
             border-radius: 15px;
             backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .stat-card h3 {
+            color: #f7931a;
+            margin-bottom: 10px;
         }
         .loading {
             animation: pulse 1.5s infinite;
@@ -104,27 +149,82 @@
             margin-top: 50px;
             font-size: 0.9em;
             opacity: 0.8;
+            padding: 20px;
+        }
+        .info-box {
+            background: rgba(247, 147, 26, 0.1);
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .info-box h3 {
+            color: #f7931a;
+            margin-bottom: 15px;
+        }
+        .farcaster-notice {
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .farcaster-notice h3 {
+            color: #8a2be2;
+        }
+        #game-status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            min-height: 20px;
+        }
+        .status-success {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid rgba(46, 204, 113, 0.4);
+            color: #2ecc71;
+        }
+        .status-error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.4);
+            color: #e74c3c;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">⚔️ Bitcoin Battle Royale</h1>
-            <p class="subtitle">Predict the next Bitcoin block and earn $Seconds tokens!</p>
+            <h1 class="title">⚡ Bitcoin TX Battle Royale</h1>
+            <p class="subtitle">Predict the number of transactions in the next Bitcoin block and win $Seconds tokens!</p>
+        </div>
+
+        <div class="farcaster-notice">
+            <h3>🔮 Farcaster Frame Available</h3>
+            <p>This game works best in Farcaster! Share this URL in Farcaster to use the interactive frame.</p>
+            <p><strong>URL:</strong> https://bitcoin-battle-farcaster-jeqx.vercel.app/</p>
         </div>
 
         <div class="game-area">
             <div class="current-block">
                 <div>Current Block Height</div>
-                <div id="current-block-height" class="loading">Loading...</div>
+                <div class="number" id="current-block-height">Loading...</div>
+                <div style="font-size: 0.7em; margin-top: 10px; opacity: 0.8;">
+                    Next block: <span id="next-block-height">-</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>📊 How to Play</h3>
+                <p>Bitcoin blocks typically contain <strong>2,000-4,000 transactions</strong></p>
+                <p>Make your prediction for the next block and win $Seconds tokens!</p>
             </div>
 
             <div class="prediction-form">
-                <input type="number" id="prediction-input" class="input-field" placeholder="Predict next block time (seconds)">
+                <input type="number" id="prediction-input" class="input-field" 
+                       placeholder="Enter TX count (e.g. 3000)" 
+                       min="1" max="10000">
                 <br>
                 <button onclick="makePrediction()" class="btn">🎯 Make Prediction</button>
-                <button onclick="checkRewards()" class="btn">💰 Check Rewards</button>
+                <button onclick="viewInFarcaster()" class="btn">🔮 Open in Farcaster</button>
             </div>
 
             <div id="game-status"></div>
@@ -132,11 +232,11 @@
 
         <div class="stats">
             <div class="stat-card">
-                <h3>🏆 Top Predictor</h3>
+                <h3>🏆 Current Leader</h3>
                 <div id="top-predictor">Loading...</div>
             </div>
             <div class="stat-card">
-                <h3>💎 Total Rewards</h3>
+                <h3>💎 Prize Pool</h3>
                 <div id="total-rewards">Loading...</div>
             </div>
             <div class="stat-card">
@@ -149,8 +249,20 @@
             </div>
         </div>
 
+        <div class="info-box">
+            <h3>🎮 Game Rules</h3>
+            <p><strong>Objective:</strong> Predict the exact number of transactions in the next Bitcoin block</p>
+            <p><strong>Rewards:</strong> Winners receive $Seconds tokens based on accuracy</p>
+            <p><strong>Range:</strong> Most blocks have 1,000-6,000 transactions</p>
+            <p><strong>Timing:</strong> New blocks are mined approximately every 10 minutes</p>
+        </div>
+
         <div class="footer">
-            <p>Built for Farcaster • Powered by $Seconds • Real-time Bitcoin data</p>
+            <p>🔗 Built for Farcaster • ⚡ Powered by $Seconds • 📊 Real-time Bitcoin data via mempool.space</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">
+                <a href="/.well-known/farcaster.json" style="color: #f7931a;">View Farcaster Config</a> | 
+                <a href="/api/frame" style="color: #f7931a;">Frame API</a>
+            </p>
         </div>
     </div>
 
@@ -166,27 +278,34 @@
                 await fetchCurrentBlock();
                 await fetchGameStats();
                 startBlockMonitoring();
+                
+                // Show success message
+                updateGameStatus('✅ Connected to Bitcoin network! Ready to play.', 'success');
             } catch (error) {
                 console.error('Failed to initialize game:', error);
-                document.getElementById('game-status').innerHTML = '❌ Failed to connect to Bitcoin network';
+                updateGameStatus('❌ Failed to connect to Bitcoin network. Using demo mode.', 'error');
+                
+                // Set demo data
+                currentBlock = 867234;
+                document.getElementById('current-block-height').textContent = currentBlock.toLocaleString();
+                document.getElementById('next-block-height').textContent = (currentBlock + 1).toLocaleString();
             }
         }
 
         // Fetch current Bitcoin block height
         async function fetchCurrentBlock() {
             try {
-                // This would connect to your backend API
-                const response = await fetch('/api/bitcoin/current-block');
-                const data = await response.json();
-                currentBlock = data.height;
+                const response = await fetch('https://mempool.space/api/blocks/tip/height');
+                const blockHeight = await response.json();
+                currentBlock = blockHeight;
+                
                 document.getElementById('current-block-height').textContent = currentBlock.toLocaleString();
-                document.getElementById('current-block-height').classList.remove('loading');
+                document.getElementById('next-block-height').textContent = (currentBlock + 1).toLocaleString();
+                
+                return blockHeight;
             } catch (error) {
                 console.error('Error fetching block:', error);
-                // Fallback to a mock block height for demo
-                currentBlock = 867234; // Example block height
-                document.getElementById('current-block-height').textContent = currentBlock.toLocaleString();
-                document.getElementById('current-block-height').classList.remove('loading');
+                throw error;
             }
         }
 
@@ -195,110 +314,113 @@
             const predictionInput = document.getElementById('prediction-input');
             const prediction = parseInt(predictionInput.value);
             
-            if (!prediction || prediction < 1 || prediction > 1200) {
-                alert('Please enter a valid prediction (1-1200 seconds)');
+            if (!prediction || prediction < 1 || prediction > 10000) {
+                updateGameStatus('⚠️ Please enter a valid prediction (1-10,000 transactions)', 'error');
                 return;
             }
 
             try {
-                // This would send to your backend
-                const response = await fetch('/api/prediction', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        blockHeight: currentBlock + 1,
-                        prediction: prediction,
-                        timestamp: Date.now()
-                    })
+                // In a real app, this would submit to your backend
+                // For demo purposes, we'll simulate the submission
+                userPrediction = prediction;
+                predictionInput.value = '';
+                
+                updateGameStatus(
+                    `🎯 Prediction submitted: ${prediction.toLocaleString()} transactions for block ${(currentBlock + 1).toLocaleString()}`, 
+                    'success'
+                );
+                
+                // Simulate saving to backend (replace with real API call)
+                console.log('Prediction submitted:', {
+                    blockHeight: currentBlock + 1,
+                    prediction: prediction,
+                    timestamp: Date.now()
                 });
-
-                if (response.ok) {
-                    userPrediction = prediction;
-                    predictionInput.value = '';
-                    document.getElementById('game-status').innerHTML = 
-                        `✅ Prediction submitted: ${prediction} seconds for block ${currentBlock + 1}`;
-                } else {
-                    throw new Error('Failed to submit prediction');
-                }
+                
             } catch (error) {
                 console.error('Error making prediction:', error);
-                document.getElementById('game-status').innerHTML = 
-                    `⚠️ Demo Mode: Predicted ${prediction} seconds for block ${currentBlock + 1}`;
+                updateGameStatus('❌ Failed to submit prediction. Please try again.', 'error');
             }
         }
 
-        // Check rewards
-        async function checkRewards() {
-            try {
-                const response = await fetch('/api/rewards');
-                const data = await response.json();
-                alert(`💰 Your rewards: ${data.totalRewards} $Seconds tokens`);
-            } catch (error) {
-                alert('💰 Demo Mode: You have 42.5 $Seconds tokens!');
-            }
+        // View in Farcaster
+        function viewInFarcaster() {
+            const farcasterUrl = `https://warpcast.com/~/compose?text=Check%20out%20this%20Bitcoin%20prediction%20game!&embeds[]=https://bitcoin-battle-farcaster-jeqx.vercel.app/`;
+            window.open(farcasterUrl, '_blank');
+        }
+
+        // Update game status with styling
+        function updateGameStatus(message, type) {
+            const statusElement = document.getElementById('game-status');
+            statusElement.innerHTML = message;
+            statusElement.className = type === 'success' ? 'status-success' : 'status-error';
         }
 
         // Fetch game statistics
         async function fetchGameStats() {
             try {
-                const response = await fetch('/api/stats');
-                const stats = await response.json();
+                // In a real app, this would fetch from your backend
+                // For demo purposes, we'll use mock data
+                document.getElementById('top-predictor').textContent = 'BitcoinMaster';
+                document.getElementById('total-rewards').textContent = '2,500 $Seconds';
+                document.getElementById('next-block-eta').textContent = '~8 minutes';
+                document.getElementById('active-players').textContent = '127';
                 
-                document.getElementById('top-predictor').textContent = stats.topPredictor || 'Anonymous';
-                document.getElementById('total-rewards').textContent = `${stats.totalRewards || '1,337'} $Seconds`;
-                document.getElementById('next-block-eta').textContent = `~${stats.nextBlockEta || '10'} min`;
-                document.getElementById('active-players').textContent = stats.activePlayers || '42';
             } catch (error) {
-                // Demo data
-                document.getElementById('top-predictor').textContent = 'CryptoMaster';
-                document.getElementById('total-rewards').textContent = '1,337 $Seconds';
-                document.getElementById('next-block-eta').textContent = '~10 min';
-                document.getElementById('active-players').textContent = '42';
+                console.error('Error fetching stats:', error);
+                document.getElementById('top-predictor').textContent = 'Loading...';
+                document.getElementById('total-rewards').textContent = 'Loading...';
+                document.getElementById('next-block-eta').textContent = 'Loading...';
+                document.getElementById('active-players').textContent = 'Loading...';
             }
         }
 
         // Monitor for new blocks
         function startBlockMonitoring() {
             setInterval(async () => {
-                const oldBlock = currentBlock;
-                await fetchCurrentBlock();
-                
-                if (currentBlock > oldBlock) {
-                    // New block found!
-                    if (userPrediction) {
-                        // Calculate if prediction was correct
-                        // This would normally check against actual block time
-                        document.getElementById('game-status').innerHTML = 
-                            `🎉 New block ${currentBlock}! Checking your prediction...`;
-                        
-                        setTimeout(() => {
-                            const won = Math.random() > 0.7; // 30% win rate for demo
-                            if (won) {
-                                document.getElementById('game-status').innerHTML = 
-                                    `🏆 Congratulations! You won 10 $Seconds tokens!`;
-                            } else {
-                                document.getElementById('game-status').innerHTML = 
-                                    `😔 Close! Try again with the next block.`;
-                            }
-                            userPrediction = null;
-                        }, 2000);
-                    }
+                try {
+                    const oldBlock = currentBlock;
+                    await fetchCurrentBlock();
                     
-                    // Update stats
-                    await fetchGameStats();
+                    if (currentBlock > oldBlock) {
+                        // New block found!
+                        updateGameStatus(`🎉 New block mined: ${currentBlock.toLocaleString()}! Checking predictions...`, 'success');
+                        
+                        if (userPrediction) {
+                            // Simulate checking prediction result
+                            setTimeout(() => {
+                                const won = Math.random() > 0.6; // 40% win rate for demo
+                                if (won) {
+                                    updateGameStatus(`🏆 Congratulations! Your prediction was close! You won 25 $Seconds tokens!`, 'success');
+                                } else {
+                                    updateGameStatus(`📊 Block ${currentBlock} had a different TX count. Try again with block ${currentBlock + 1}!`, 'error');
+                                }
+                                userPrediction = null;
+                            }, 3000);
+                        }
+                        
+                        // Update stats
+                        await fetchGameStats();
+                    }
+                } catch (error) {
+                    console.error('Error monitoring blocks:', error);
                 }
-            }, 30000); // Check every 30 seconds
+            }, 60000); // Check every minute
         }
 
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', initGame);
 
-        // Handle Farcaster frame interactions
+        // Handle Farcaster frame context
         if (window.parent !== window) {
-            // We're in a frame, handle frame-specific logic
-            console.log('Running in Farcaster frame');
+            console.log('Running in Farcaster frame context');
+            // Add any frame-specific functionality here
+        }
+
+        // Handle URL parameters for testing
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('test') === 'frame') {
+            updateGameStatus('🔮 Frame test mode activated', 'success');
         }
     </script>
 </body>
