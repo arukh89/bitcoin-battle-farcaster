@@ -1,4 +1,9 @@
 {
+  "accountAssociation": {
+    "header": "eyJmaWQiOjEyMzQ1LCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4ZjE5YWU1ZjhlMDczNzFiMzBkMDJhOGQwNWI5NmZmYzM5MDMwNGIyZSJ9",
+    "payload": "eyJkb21haW4iOiJiaXRjb2luLWJhdHRsZS1mYXJjYXN0ZXItamVxeC52ZXJjZWwuYXBwIn0",
+    "signature": "MHhjZGY4N2E4ZTQwZjY0NzQwOGRkY2M5NTMxMjQzZmM4ZTQyMWNhMzEwOGRiMmY4YTMwZmQyNjA2MTc2NTRhNjU1Mzc5ZDNhM2Y4NGE0NGU5MTJlNjRkOTZlMWM4YzQ4MTU5OTNkMGZjNzM3NWEwNmYzN2E4MDNjNTkzNDU5MzMxYw"
+  },
   "version": "1",
   "name": "Seconds Bitcoin TX Battle Royale",
   "iconUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-icon.png",
