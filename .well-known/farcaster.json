@@ -1,21 +1,17 @@
 {
   "accountAssociation": {
-    "header": "eyJmaWQiOjEyMzQ1LCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4ZjE5YWU1ZjhlMDczNzFiMzBkMDJhOGQwNWI5NmZmYzM5MDMwNGIyZSJ9",
+    "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDE1MzY1NzE0NWVBMmQ1Nzk2OTFhMTQ2YzdFYTRDRkFFMzdEMjdGYWUifQ",
     "payload": "eyJkb21haW4iOiJiaXRjb2luLWJhdHRsZS1mYXJjYXN0ZXItamVxeC52ZXJjZWwuYXBwIn0",
-    "signature": "MHhjZGY4N2E4ZTQwZjY0NzQwOGRkY2M5NTMxMjQzZmM4ZTQyMWNhMzEwOGRiMmY4YTMwZmQyNjA2MTc2NTRhNjU1Mzc5ZDNhM2Y4NGE0NGU5MTJlNjRkOTZlMWM4YzQ4MTU5OTNkMGZjNzM3NWEwNmYzN2E4MDNjNTkzNDU5MzMxYw"
+    "signature": "MHhkZTY0ZTY5YjI0OGE0MTU3NmI5OTQxZjEzOTliZTgwYTc3NWNjOTExOWVkYjI4OTE5OTQxMGVhYjE1ZDE3YjZiMzZmYmNmZTZiMjRhNzQ1ZDc2OWUwNDc5NTI0NzkzMDcwMDA4NDNmNDQyNDgyNzhkOWU5YzM1YTk1OTc2NzA0ODFj"
   },
   "version": "1",
-  "name": "Seconds Bitcoin TX Battle Royale",
+  "name": "Bitcoin TX Battle Royale",
   "iconUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-icon.png",
   "homeUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/",
-  "imageUrl": "not set",
-  "buttonTitle": "not set",
   "splashImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-splash.png",
   "splashBackgroundColor": "#1e3a8a",
-  "webhookUrl": "not set",
   "subtitle": "Predict Bitcoin transactions and win Seconds tokens",
   "description": "Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block. Winners earn Seconds tokens!",
-  "screenshotUrl": "not set",
   "primaryCategory": "games",
   "tags": [
     "bitcoin",
