@@ -22,6 +22,8 @@ export default async function handler(req, res) {
         return handleJoinBattle(req, res, fid);
       case 2: // View Stats
         return handleViewStats(req, res, fid);
+      case 3: // Share to Farcaster
+        return handleShare(req, res, fid);
       default:
         return handleDefault(req, res);
     }
@@ -78,6 +80,8 @@ async function handleViewStats(req, res, fid) {
         <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         <meta property="fc:frame:button:1" content="🎮 New Battle" />
         <meta property="fc:frame:button:1:action" content="post" />
+        <meta property="fc:frame:button:2" content="📊 Share Battle" />
+        <meta property="fc:frame:button:2:action" content="post" />
         <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/frame" />
       </head>
       <body>
@@ -89,6 +93,62 @@ async function handleViewStats(req, res, fid) {
 
   res.setHeader('Content-Type', 'text/html');
   return res.status(200).send(html);
+}
+
+async function handleShare(req, res, fid) {
+  try {
+    // Get current Bitcoin data
+    const response = await fetch('https://mempool.space/api/blocks/tip/height');
+    const blockHeight = await response.json();
+    const nextBlock = blockHeight + 1;
+    const roundNumber = Math.floor(Math.random() * 300) + 150;
+
+    const shareText = `⛏️ BITCOIN BLOCKS ROUND #${roundNumber} — POWERED BY $SECONDS ⏱️
+
+🎯 Objective:
+Predict the number of transactions in Bitcoin Block #${nextBlock}. Comment your guess below and the closest answer wins.
+
+Prize pool 🏆
+🥇 1st place: 500 $SECONDS 
+🥈 2nd place: 250 $SECONDS
+
+Play: https://bitcoin-battle-farcaster-zeta.vercel.app/`;
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta property="fc:frame" content="vNext" />
+          <meta property="fc:frame:title" content="Share Bitcoin Battle Round #${roundNumber}" />
+          <meta property="fc:frame:description" content="Challenge your network! Block #${nextBlock} prediction battle" />
+          <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/og" />
+          <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+          <meta property="fc:frame:button:1" content="🚀 Share Now" />
+          <meta property="fc:frame:button:1:action" content="link" />
+          <meta property="fc:frame:button:1:target" content="https://warpcast.com/~/compose?text=${encodeURIComponent(shareText)}" />
+          <meta property="fc:frame:button:2" content="🎮 Play Battle" />
+          <meta property="fc:frame:button:2:action" content="post" />
+          <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/frame" />
+        </head>
+        <body>
+          <div style="text-align: center; padding: 40px; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; font-family: Arial, sans-serif; min-height: 100vh;">
+            <h1 style="color: #f7931a; font-size: 2.5em;">📢 Share Battle Round #${roundNumber}</h1>
+            <div style="background: rgba(247, 147, 26, 0.1); padding: 30px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(247, 147, 26, 0.3);">
+              <h2>Block #${nextBlock} Prediction Challenge</h2>
+              <p style="font-size: 1.2em;">💰 Prize Pool: 750 $SECONDS total!</p>
+              <p>🥇 1st: 500 $SECONDS | 🥈 2nd: 250 $SECONDS</p>
+            </div>
+            <p>Share this battle with your Farcaster network and grow the community! 🚀</p>
+          </div>
+        </body>
+      </html>
+    `;
+
+    res.setHeader('Content-Type', 'text/html');
+    return res.status(200).send(html);
+  } catch (error) {
+    return handleError(res, 'Failed to create share content');
+  }
 }
 
 async function handleDefault(req, res) {
@@ -105,6 +165,8 @@ async function handleDefault(req, res) {
         <meta property="fc:frame:button:1:action" content="post" />
         <meta property="fc:frame:button:2" content="📊 View Stats" />
         <meta property="fc:frame:button:2:action" content="post" />
+        <meta property="fc:frame:button:3" content="📢 Share Battle" />
+        <meta property="fc:frame:button:3:action" content="post" />
         <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/frame" />
       </head>
       <body>
@@ -115,6 +177,7 @@ async function handleDefault(req, res) {
           <p>1. This is a Farcaster Frame - use it in a Farcaster client</p>
           <p>2. Click "Join Battle" to make your Bitcoin TX prediction</p>
           <p>3. Win $Seconds tokens for accurate predictions!</p>
+          <p>4. Share battles with friends to grow the community!</p>
         </div>
       </body>
     </html>
