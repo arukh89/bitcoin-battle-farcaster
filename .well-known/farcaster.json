@@ -11,8 +11,8 @@
     "homeUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/",
     "splashImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/splash",
     "splashBackgroundColor": "#1a1a1a",
-    "subtitle": "Predict Bitcoin transactions and win $Seconds tokens",
-    "description": "Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block. Winners earn $Seconds tokens!",
+    "subtitle": "Predict Bitcoin transactions and win Seconds tokens",
+    "description": "Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block. Winners earn Seconds tokens!",
     "primaryCategory": "games",
     "tags": [
       "bitcoin",
