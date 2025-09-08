@@ -14,6 +14,14 @@
       ]
     },
     {
+      "source": "/api/og",
+      "headers": [
+        {"key": "Cache-Control", "value": "public, max-age=3600"},
+        {"key": "Content-Type", "value": "image/svg+xml"},
+        {"key": "Access-Control-Allow-Origin", "value": "*"}
+      ]
+    },
+    {
       "source": "/api/(.*)",
       "headers": [
         {"key": "Access-Control-Allow-Origin", "value": "*"},
@@ -26,13 +34,6 @@
       "headers": [
         {"key": "X-Frame-Options", "value": "ALLOWALL"},
         {"key": "Content-Security-Policy", "value": "frame-ancestors *;"}
-      ]
-    },
-    {
-      "source": "/api/og",
-      "headers": [
-        {"key": "Cache-Control", "value": "public, max-age=3600"},
-        {"key": "Content-Type", "value": "image/svg+xml"}
       ]
     }
   ],
