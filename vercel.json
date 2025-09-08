@@ -1,0 +1,29 @@
+{
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 10
+    }
+  },
+  "headers": [
+    {
+      "source": "/.well-known/farcaster.json",
+      "headers": [
+        {"key": "Access-Control-Allow-Origin", "value": "*"},
+        {"key": "Content-Type", "value": "application/json"}
+      ]
+    },
+    {
+      "source": "/api/**",
+      "headers": [
+        {"key": "Access-Control-Allow-Origin", "value": "*"},
+        {"key": "Access-Control-Allow-Methods", "value": "POST, GET, OPTIONS"},
+        {"key": "Access-Control-Allow-Headers", "value": "Content-Type"}
+      ]
+    }
+  ],
+  "rewrites": [
+    {"source": "/battle", "destination": "/battle/index.html"},
+    {"source": "/stats", "destination": "/stats/index.html"},
+    {"source": "/leaderboard", "destination": "/leaderboard/index.html"}
+  ]
+}
