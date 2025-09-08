@@ -5,7 +5,7 @@
     "signature": "MHhlM2MxMWE3YmJhMTAzZWRhN2YzMzE2MjJjMWRiZjYxOTExY2E5NmFmZDJlZjEzYWQyNmFiZDBjY2ZmZmE0ZTQ2M2RmOTg0YWMwOWY1NzJmYTkyMjhhYTg3Y2E4ZDRkZGZkMWYxMTBhNDczM2ZmZjE2NGM3NGJlZmM0YmUyZTBlMTFj"
   },
   "miniapp": {
-    "version": "vNext",
+    "version": "1",
     "name": "Bitcoin TX Battle Royale",
     "iconUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/api/icon",
     "homeUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/",
