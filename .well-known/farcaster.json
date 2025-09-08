@@ -21,9 +21,9 @@
       "prediction",
       "crypto"
     ],
-    "heroImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og",
+    "heroImageUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/api/og",
     "ogTitle": "Bitcoin TX Battle Royale",
     "ogDescription": "Predict Bitcoin block transactions and win tokens in this real-time blockchain battle royale",
-    "ogImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og"
+    "ogImageUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/api/og"
   }
 }
