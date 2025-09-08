@@ -17,12 +17,11 @@
     <meta property="fc:frame:button:2:action" content="post" />
     <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/frame" />
     
-    <!-- Open Graph Meta Tags -->
+    <!-- OG Meta Tags -->
     <meta property="og:title" content="Bitcoin TX Battle Royale" />
-    <meta property="og:description" content="Predict Bitcoin block transactions and win tokens in this real-time blockchain battle royale" />
+    <meta property="og:description" content="Predict Bitcoin block transactions and win tokens" />
     <meta property="og:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/og" />
     <meta property="og:url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/" />
-    <meta property="og:type" content="website" />
     
     <style>
         * {
@@ -32,297 +31,335 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
             color: white;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
         }
         
         .container {
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             text-align: center;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            border: 1px solid rgba(247, 147, 26, 0.2);
-            backdrop-filter: blur(10px);
         }
         
-        .bitcoin-icon {
-            font-size: 4rem;
-            color: #f7931a;
-            margin-bottom: 20px;
-            display: block;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #f7931a, #ffb347);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: #cccccc;
+        .header {
             margin-bottom: 30px;
         }
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+        .logo {
+            font-size: 3em;
+            color: #f7931a;
+            margin-bottom: 10px;
         }
         
-        .stat-card {
+        .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #f7931a;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #cccccc;
+            margin-bottom: 20px;
+        }
+        
+        .game-info {
             background: rgba(247, 147, 26, 0.1);
             border: 1px solid rgba(247, 147, 26, 0.3);
             border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .block-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
             padding: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            border: 1px solid rgba(247, 147, 26, 0.2);
         }
         
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(247, 147, 26, 0.2);
+        .info-label {
+            font-size: 0.9em;
+            color: #cccccc;
+            margin-bottom: 5px;
         }
         
-        .stat-value {
-            font-size: 2rem;
+        .info-value {
+            font-size: 1.5em;
             font-weight: bold;
             color: #f7931a;
-            display: block;
         }
         
-        .stat-label {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-top: 5px;
-        }
-        
-        .action-buttons {
-            margin-top: 40px;
+        .actions {
             display: flex;
+            flex-wrap: wrap;
             gap: 15px;
             justify-content: center;
-            flex-wrap: wrap;
+            margin: 30px 0;
         }
         
         .btn {
-            padding: 15px 30px;
+            background: #f7931a;
+            color: white;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            padding: 15px 30px;
+            font-size: 1.1em;
             font-weight: bold;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 150px;
-            justify-content: center;
+            display: inline-block;
         }
         
-        .btn-primary {
-            background: linear-gradient(45deg, #f7931a, #ffb347);
-            color: white;
-        }
-        
-        .btn-primary:hover {
+        .btn:hover {
+            background: #e8851e;
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(247, 147, 26, 0.4);
         }
         
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(247, 147, 26, 0.2);
+            border: 2px solid #f7931a;
         }
         
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .loading {
-            margin-top: 20px;
-            font-size: 1rem;
-            color: #f7931a;
-        }
-        
-        .loading::after {
-            content: '';
-            animation: dots 1.5s infinite;
-        }
-        
-        @keyframes dots {
-            0%, 20% { content: ''; }
-            40% { content: '.'; }
-            60% { content: '..'; }
-            80%, 100% { content: '...'; }
+            background: rgba(247, 147, 26, 0.3);
         }
         
         .status {
-            margin-top: 20px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            color: #00ff00;
             padding: 15px;
             border-radius: 10px;
-            font-size: 1rem;
+            margin: 20px 0;
         }
         
-        .status.success {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #22c55e;
+        .prize-pool {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
         }
         
-        .status.error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #ef4444;
+        .share-preview {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.9em;
         }
         
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
+        .hidden {
+            display: none;
+        }
+        
+        .loading {
+            color: #f7931a;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 600px) {
+            .title {
+                font-size: 2em;
             }
             
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-buttons {
+            .actions {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="bitcoin-icon">⚡₿</div>
-        <h1>Bitcoin TX Battle Royale</h1>
-        <p class="subtitle">Predict Bitcoin block transactions and win $Seconds tokens!</p>
+        <div class="header">
+            <div class="logo">⚡₿</div>
+            <h1 class="title">Bitcoin TX Battle Royale</h1>
+            <p class="subtitle">Predict • Compete • Win $Seconds</p>
+        </div>
         
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-value" id="nextBlock">Loading...</span>
-                <div class="stat-label">Next Block</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-value" id="playersOnline">-</span>
-                <div class="stat-label">Players Online</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-value">100</span>
-                <div class="stat-label">Current Prize</div>
+        <div id="status" class="status">
+            <span class="loading">🔄 Initializing Farcaster SDK...</span>
+        </div>
+        
+        <div class="game-info">
+            <h2>Next Block Prediction</h2>
+            <div class="block-info">
+                <div class="info-card">
+                    <div class="info-label">Next Block</div>
+                    <div id="nextBlock" class="info-value">Loading...</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Players Online</div>
+                    <div id="playersOnline" class="info-value">-</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Round Number</div>
+                    <div id="roundNumber" class="info-value">Loading...</div>
+                </div>
             </div>
         </div>
         
-        <div class="action-buttons">
-            <button class="btn btn-primary" onclick="joinBattle()">
-                🎮 Join Battle
-            </button>
-            <button class="btn btn-secondary" onclick="viewStats()">
-                📊 View Stats
-            </button>
+        <div class="prize-pool">
+            <h3 style="color: #ffd700;">🏆 Prize Pool</h3>
+            <p><strong>🥇 1st place:</strong> 500 $SECONDS</p>
+            <p><strong>🥈 2nd place:</strong> 250 $SECONDS</p>
+            <p><strong>🥉 3rd place:</strong> 100 $SECONDS</p>
         </div>
         
-        <div id="status" class="loading">🔄 Initializing Farcaster SDK</div>
+        <div class="actions">
+            <button id="playBtn" class="btn" onclick="startBattle()">🎮 Join Battle</button>
+            <button id="shareBtn" class="btn btn-secondary" onclick="shareToFarcaster()">📢 Share Battle</button>
+            <a href="/api/frame" class="btn btn-secondary">🖼️ View Frame</a>
+        </div>
+        
+        <div id="sharePreview" class="share-preview hidden">
+            <h4>Share Preview:</h4>
+            <div id="shareText"></div>
+            <button class="btn" style="margin-top: 10px;" onclick="copyShareText()">📋 Copy Text</button>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: rgba(247, 147, 26, 0.1); border-radius: 10px;">
+            <h3>🎮 How to Play</h3>
+            <p>1. Predict the number of transactions in the next Bitcoin block</p>
+            <p>2. Submit your guess through the Farcaster frame</p>
+            <p>3. Closest prediction wins $Seconds tokens!</p>
+            <p>4. Share the battle to invite more players</p>
+        </div>
     </div>
 
-    <script type="module">
-        // Import Farcaster SDK
-        import { miniApp } from 'https://unpkg.com/@farcaster/miniapp-sdk@0.1.0/dist/index.js';
+    <script src="https://unpkg.com/@farcaster/miniapp-sdk@0.1.0/dist/index.js"></script>
+    <script>
+        let sdk;
+        let currentBlockHeight = 0;
+        let roundNumber = 0;
 
-        let isSDKReady = false;
-        let currentBlockHeight = null;
-
-        // Initialize the SDK
-        async function initSDK() {
+        // Initialize the app
+        async function initializeApp() {
             try {
-                console.log('Initializing Farcaster SDK...');
-                
-                // Initialize the mini app
-                await miniApp.ready();
-                
-                console.log('Farcaster SDK initialized successfully');
-                isSDKReady = true;
-                
-                // Update status
-                const statusEl = document.getElementById('status');
-                statusEl.textContent = '✅ Connected to Farcaster';
-                statusEl.className = 'status success';
+                // Initialize Farcaster SDK
+                if (typeof farcaster !== 'undefined') {
+                    sdk = farcaster.miniapp;
+                    await sdk.ready();
+                    document.getElementById('status').innerHTML = '✅ Connected to Farcaster';
+                    console.log('Farcaster SDK initialized successfully');
+                } else {
+                    // Fallback for non-Farcaster environments
+                    document.getElementById('status').innerHTML = '🌐 Running in web mode';
+                }
                 
                 // Load Bitcoin data
                 await loadBitcoinData();
                 
             } catch (error) {
-                console.error('Failed to initialize Farcaster SDK:', error);
-                
-                const statusEl = document.getElementById('status');
-                statusEl.textContent = '⚠️ Running in standalone mode';
-                statusEl.className = 'status error';
-                
-                // Still load Bitcoin data even if SDK fails
+                console.error('Initialization error:', error);
+                document.getElementById('status').innerHTML = '⚠️ Initialization completed with warnings';
+                // Continue loading even if SDK fails
                 await loadBitcoinData();
             }
         }
 
-        // Load Bitcoin block data
         async function loadBitcoinData() {
             try {
                 const response = await fetch('https://mempool.space/api/blocks/tip/height');
-                const blockHeight = await response.json();
-                currentBlockHeight = blockHeight;
+                currentBlockHeight = await response.json();
+                const nextBlock = currentBlockHeight + 1;
                 
-                document.getElementById('nextBlock').textContent = `#${blockHeight + 1}`;
+                document.getElementById('nextBlock').textContent = `#${nextBlock}`;
                 
-                // Simulate online players (in a real app, this would come from your backend)
+                // Calculate round number (could be based on block height or timestamp)
+                roundNumber = Math.floor((nextBlock - 900000) / 10) + 100; // Example calculation
+                document.getElementById('roundNumber').textContent = `#${roundNumber}`;
+                
+                // Simulate players online
                 document.getElementById('playersOnline').textContent = Math.floor(Math.random() * 50) + 10;
                 
             } catch (error) {
                 console.error('Failed to load Bitcoin data:', error);
                 document.getElementById('nextBlock').textContent = 'Error';
+                document.getElementById('roundNumber').textContent = 'Error';
             }
         }
 
-        // Join battle function
-        window.joinBattle = function() {
-            if (isSDKReady) {
+        function startBattle() {
+            // Redirect to frame for the actual game
+            window.location.href = '/api/frame';
+        }
+
+        function shareToFarcaster() {
+            const nextBlock = currentBlockHeight + 1;
+            const shareText = `⛏️ BITCOIN BLOCKS ROUND #${roundNumber} — POWERED BY $SECONDS ⏱️
+
+🎯 Objective:
+Predict the number of transactions in Bitcoin Block #${nextBlock}. Comment your guess below and the closest answer wins.
+
+Prize pool 🏆
+🥇 1st place: 500 $SECONDS 
+🥈 2nd place: 250 $SECONDS
+
+🎮 Play now: https://bitcoin-battle-farcaster-zeta.vercel.app/
+
+#Bitcoin #GameFi #Seconds #Farcaster`;
+
+            document.getElementById('shareText').textContent = shareText;
+            document.getElementById('sharePreview').classList.remove('hidden');
+
+            // If we have Farcaster SDK, try to share directly
+            if (sdk && sdk.actions && sdk.actions.share) {
                 try {
-                    miniApp.close();
+                    sdk.actions.share({
+                        text: shareText
+                    });
                 } catch (error) {
-                    console.error('Error closing mini app:', error);
+                    console.log('Direct share not available:', error);
                 }
-            } else {
-                // Fallback: redirect to frame
-                window.location.href = '/api/frame';
             }
         }
 
-        // View stats function
-        window.viewStats = function() {
-            alert(`Your Stats:\n\nBattles Played: ${Math.floor(Math.random() * 10) + 1}\nTokens Earned: ${Math.floor(Math.random() * 1000) + 100}\nWin Rate: ${Math.floor(Math.random() * 50) + 25}%`);
+        function copyShareText() {
+            const shareText = document.getElementById('shareText').textContent;
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert('Share text copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = shareText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('Share text copied to clipboard!');
+            });
         }
 
         // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', initSDK);
+        document.addEventListener('DOMContentLoaded', initializeApp);
         
-        // Auto-refresh block data every 30 seconds
+        // Refresh data every 30 seconds
         setInterval(loadBitcoinData, 30000);
     </script>
 </body>
