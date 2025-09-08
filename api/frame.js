@@ -1,5 +1,11 @@
 // Main Farcaster Frame API handler
 export default async function handler(req, res) {
+  // Handle GET requests (when someone visits the URL directly)
+  if (req.method === 'GET') {
+    return handleDefault(req, res);
+  }
+
+  // Handle POST requests (Farcaster frame interactions)
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -76,7 +82,7 @@ async function handleViewStats(req, res, fid) {
       </head>
       <body>
         <h1>Your Battle Stats</h1>
-        <p>FID: ${fid}</p>
+        <p>FID: ${fid || 'Not provided'}</p>
       </body>
     </html>
   `;
@@ -104,6 +110,12 @@ async function handleDefault(req, res) {
       <body>
         <h1>$Seconds Bitcoin TX Battle Royale</h1>
         <p>Welcome to the ultimate Bitcoin prediction game!</p>
+        <div style="margin: 20px 0; padding: 20px; background: rgba(247, 147, 26, 0.1); border-radius: 10px;">
+          <p><strong>🎮 How to play:</strong></p>
+          <p>1. This is a Farcaster Frame - use it in a Farcaster client</p>
+          <p>2. Click "Join Battle" to make your Bitcoin TX prediction</p>
+          <p>3. Win $Seconds tokens for accurate predictions!</p>
+        </div>
       </body>
     </html>
   `;
@@ -135,4 +147,4 @@ async function handleError(res, message) {
 
   res.setHeader('Content-Type', 'text/html');
   return res.status(200).send(html);
-}
+    }
