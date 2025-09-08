@@ -1,0 +1,33 @@
+{
+  "name": "bitcoin-battle-farcaster",
+  "version": "1.0.0",
+  "description": "Bitcoin TX Battle Royale for Farcaster",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "deploy": "vercel --prod",
+    "setup": "./scripts/setup.sh"
+  },
+  "dependencies": {
+    "@farcaster/miniapp-sdk": "^0.1.0",
+    "@supabase/supabase-js": "^2.38.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "vercel": "^33.0.0",
+    "vitest": "^1.0.0"
+  },
+  "keywords": [
+    "farcaster",
+    "bitcoin",
+    "blockchain",
+    "game",
+    "crypto"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
