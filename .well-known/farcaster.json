@@ -3,8 +3,7 @@
     "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDE1MzY1NzE0NWVBMmQ1Nzk2OTFhMTQ2YzdFYTRDRkFFMzdEMjdGYWUifQ",
     "payload": "eyJkb21haW4iOiJiaXRjb2luLWJhdHRsZS1mYXJjYXN0ZXItamVxeC52ZXJjZWwuYXBwIn0",
     "signature": "MHg0ODc5Y2U4OWYyMDA5OGE3OTVkNjM5NzhmN2ZmMTQwNTEzMjYwYTYxOGZhMjRkOGViYTIyODcyYWMyMGM5YTRkN2NjMzljZTY3YWU5MWUyMjlmOGMxOTZhZmNhMWI3MDY1MjA1YjAwMTAwZDJhMTYwM2M3NmI3MDBkNmUxZjY5MzFi"
-  }
-},
+  },
   "miniapp": {
     "version": "1",
     "name": "Bitcoin TX Battle Royale",
@@ -12,8 +11,8 @@
     "homeUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/",
     "splashImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/splash",
     "splashBackgroundColor": "#1a1a1a",
-    "subtitle": "Predict Bitcoin transactions and win $Seconds tokens",
-    "description": "Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block. Winners earn $Seconds tokens!",
+    "subtitle": "Predict Bitcoin tx",
+    "description": "Real-time Bitcoin block prediction game where players compete to guess transactions in the next block. Winners earn tokens",
     "primaryCategory": "games",
     "tags": [
       "bitcoin",
@@ -24,7 +23,7 @@
     ],
     "heroImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og",
     "ogTitle": "Bitcoin TX Battle Royale",
-    "ogDescription": "Predict Bitcoin block transactions and win tokens in this real-time blockchain battle royale!",
+    "ogDescription": "Predict Bitcoin block transactions and win tokens in this real-time blockchain battle royale",
     "ogImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og"
   }
 }
