@@ -26,8 +26,15 @@
     "bitcoin",
     "blockchain",
     "game",
-    "crypto"
+    "crypto",
+    "miniapp",
+    "frame"
   ],
   "author": "Your Name",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://bitcoin-battle-farcaster-zeta.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arukh89/bitcoin-battle-farcaster.git"
+  }
 }
