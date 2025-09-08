@@ -23,7 +23,7 @@
     ],
     "heroImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og",
     "ogTitle": "Bitcoin TX Battle Royale",
-    "ogDescription": "Predict Bitcoin block transactions and win $Seconds tokens in this real-time blockchain battle royale!",
+    "ogDescription": "Predict Bitcoin block transactions and win tokens in this real-time blockchain battle royale!",
     "ogImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og"
   }
 }
