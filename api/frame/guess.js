@@ -39,13 +39,13 @@ export default async function handler(req, res) {
           <meta property="fc:frame" content="vNext" />
           <meta property="fc:frame:title" content="Guess Submitted! - Block #${nextBlock}" />
           <meta property="fc:frame:description" content="Your prediction: ${prediction} transactions for block #${nextBlock}" />
-          <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/guess-submitted-frame.png" />
+          <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/guess-submitted-frame.png" />
           <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
           <meta property="fc:frame:button:1" content="🎮 New Battle" />
           <meta property="fc:frame:button:1:action" content="post" />
           <meta property="fc:frame:button:2" content="📊 View Stats" />
           <meta property="fc:frame:button:2:action" content="post" />
-          <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/frame" />
+          <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/frame" />
         </head>
         <body>
           <div style="text-align: center; padding: 40px; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; font-family: Arial, sans-serif; min-height: 100vh;">
@@ -81,11 +81,11 @@ async function handleInvalidGuess(res, inputText) {
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:title" content="Invalid Prediction" />
         <meta property="fc:frame:description" content="Please enter a valid number between 1-10000" />
-        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/invalid-guess-frame.png" />
+        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/invalid-guess-frame.png" />
         <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         <meta property="fc:frame:button:1" content="🔄 Try Again" />
         <meta property="fc:frame:button:1:action" content="post" />
-        <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/frame" />
+        <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/frame" />
       </head>
       <body>
         <div style="text-align: center; padding: 40px; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; font-family: Arial, sans-serif; min-height: 100vh;">
@@ -112,11 +112,11 @@ async function handleError(res, message) {
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:title" content="Bitcoin Battle - Error" />
         <meta property="fc:frame:description" content="${message}" />
-        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/error-frame.png" />
+        <meta property="fc:frame:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/error-frame.png" />
         <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         <meta property="fc:frame:button:1" content="🔄 Try Again" />
         <meta property="fc:frame:button:1:action" content="post" />
-        <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-jeqx.vercel.app/api/frame" />
+        <meta property="fc:frame:post_url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/frame" />
       </head>
       <body>
         <h1>Error</h1>
@@ -127,4 +127,4 @@ async function handleError(res, message) {
 
   res.setHeader('Content-Type', 'text/html');
   return res.status(200).send(html);
-}
+    }
