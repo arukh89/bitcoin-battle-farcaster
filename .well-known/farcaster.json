@@ -1,17 +1,17 @@
 {
   "accountAssociation": {
-    "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDE1MzY1NzE0NWVBMmQ1Nzk2OTFhMTQ2YzdFYTRDRkFFMzdEMjdGYWUifQ",
+    "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweGYxOWFlNWY4ZTA3MzcxYjMwZDAyYThkMDViOTZmZmMzOTAzMDRiMmUifQ",
     "payload": "eyJkb21haW4iOiJiaXRjb2luLWJhdHRsZS1mYXJjYXN0ZXItamVxeC52ZXJjZWwuYXBwIn0",
-    "signature": "MHhkZTY0ZTY5YjI0OGE0MTU3NmI5OTQxZjEzOTliZTgwYTc3NWNjOTExOWVkYjI4OTE5OTQxMGVhYjE1ZDE3YjZiMzZmYmNmZTZiMjRhNzQ1ZDc2OWUwNDc5NTI0NzkzMDcwMDA4NDNmNDQyNDgyNzhkOWU5YzM1YTk1OTc2NzA0ODFj"
+    "signature": "0x..."
   },
   "version": "1",
   "name": "Bitcoin TX Battle Royale",
-  "iconUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-icon.png",
+  "iconUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/icon",
   "homeUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/",
-  "splashImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-splash.png",
-  "splashBackgroundColor": "#1e3a8a",
-  "subtitle": "Predict Bitcoin transactions and win Seconds tokens",
-  "description": "Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block. Winners earn Seconds tokens!",
+  "splashImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/splash",
+  "splashBackgroundColor": "#1a1a1a",
+  "subtitle": "Predict Bitcoin transactions and win $Seconds tokens",
+  "description": "Real-time Bitcoin block prediction game where players compete to guess the number of transactions in the next block. Winners earn $Seconds tokens!",
   "primaryCategory": "games",
   "tags": [
     "bitcoin",
@@ -20,7 +20,11 @@
     "prediction",
     "crypto",
     "competition",
-    "battle-royale"
+    "battle-royale",
+    "defi"
   ],
-  "heroImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/bitcoin-battle-hero.png"
+  "heroImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og",
+  "ogTitle": "Bitcoin TX Battle Royale",
+  "ogDescription": "Predict Bitcoin block transactions and win $Seconds tokens in this real-time blockchain battle royale!",
+  "ogImageUrl": "https://bitcoin-battle-farcaster-jeqx.vercel.app/api/og"
 }
