@@ -57,6 +57,12 @@
             max-width: 800px;
             width: 100%;
             text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .container.loaded {
+            opacity: 1;
         }
         
         .header {
@@ -167,6 +173,12 @@
             color: #ff6b35;
         }
         
+        .status.loading {
+            background: rgba(247, 147, 26, 0.1);
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            color: #f7931a;
+        }
+        
         .prize-pool {
             background: rgba(255, 215, 0, 0.1);
             border: 1px solid rgba(255, 215, 0, 0.3);
@@ -190,9 +202,18 @@
             display: none;
         }
         
-        .loading {
-            color: #f7931a;
-            font-size: 1.1em;
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(247, 147, 26, 0.3);
+            border-radius: 50%;
+            border-top-color: #f7931a;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         @media (max-width: 600px) {
@@ -213,15 +234,16 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="mainContainer">
         <div class="header">
             <div class="logo">⚡₿</div>
             <h1 class="title">Bitcoin TX Battle Royale</h1>
             <p class="subtitle">Predict • Compete • Win $Seconds</p>
         </div>
         
-        <div id="status" class="status">
-            <span class="loading">🔄 Initializing...</span>
+        <div id="status" class="status loading">
+            <div class="loading-spinner"></div>
+            <span id="statusText">Initializing...</span>
         </div>
         
         <div class="game-info">
@@ -270,64 +292,71 @@
         </div>
     </div>
 
-    <!-- Load Farcaster SDK from CDN -->
-    <script src="https://unpkg.com/farcaster-js-sdk@1.2.0/dist/index.js"></script>
+    <!-- Load Farcaster SDK -->
+    <script src="https://unpkg.com/@farcaster/miniapp-sdk@0.1.4/dist/index.js"></script>
     <script>
         let sdk;
         let currentBlockHeight = 0;
         let roundNumber = 0;
         let isSDKReady = false;
+        let isInterfaceReady = false;
 
-        // Initialize the app
-        async function initializeApp() {
+        // Update status function
+        function updateStatus(message, type = 'loading') {
+            const statusEl = document.getElementById('status');
+            const statusTextEl = document.getElementById('statusText');
+            
+            statusTextEl.textContent = message;
+            statusEl.className = `status ${type}`;
+            
+            console.log(`Status: ${message} (${type})`);
+        }
+
+        // Initialize the Farcaster SDK
+        async function initializeFarcasterSDK() {
             try {
-                console.log('Starting initialization...');
+                console.log('Checking for Farcaster SDK...');
                 
                 // Check if we're in a Farcaster Mini App environment
-                if (typeof window.farcaster !== 'undefined') {
+                if (typeof window.farcaster !== 'undefined' && window.farcaster.miniapp) {
                     console.log('Farcaster SDK detected');
-                    sdk = window.farcaster;
+                    sdk = window.farcaster.miniapp;
                     
-                    // Call ready() to signal the Mini App is loaded
-                    await sdk.ready();
+                    updateStatus('Connected to Farcaster Mini App', 'success');
                     isSDKReady = true;
-                    
-                    updateStatus('✅ Connected to Farcaster Mini App', false);
-                    console.log('Farcaster SDK initialized successfully');
-                    
-                } else if (typeof window.parent !== 'undefined' && window.parent !== window) {
-                    // We might be in an iframe, try to communicate with parent
-                    console.log('Attempting iframe communication...');
-                    window.parent.postMessage({ type: 'MINI_APP_READY' }, '*');
-                    updateStatus('🔗 Connected via iframe', false);
+                    return true;
                     
                 } else {
-                    // Fallback for regular web browser
-                    console.log('Running in regular browser mode');
-                    updateStatus('🌐 Running in web mode (not a Mini App)', false);
+                    console.log('Farcaster SDK not found, running in web mode');
+                    updateStatus('Running in web mode (not a Mini App)', 'info');
+                    isSDKReady = false;
+                    return false;
                 }
                 
-                // Load Bitcoin data regardless of SDK status
-                await loadBitcoinData();
-                
             } catch (error) {
-                console.error('Initialization error:', error);
-                updateStatus('⚠️ Initialization completed with warnings', true);
-                // Continue loading even if SDK fails
-                await loadBitcoinData();
+                console.error('SDK initialization error:', error);
+                updateStatus('SDK initialization failed', 'error');
+                return false;
             }
         }
 
-        function updateStatus(message, isError = false) {
-            const statusEl = document.getElementById('status');
-            statusEl.innerHTML = `<span>${message}</span>`;
-            statusEl.className = isError ? 'status error' : 'status';
-        }
-
+        // Load Bitcoin data
         async function loadBitcoinData() {
             try {
                 console.log('Loading Bitcoin data...');
-                const response = await fetch('https://mempool.space/api/blocks/tip/height');
+                updateStatus('Loading Bitcoin data...', 'loading');
+                
+                const response = await fetch('https://mempool.space/api/blocks/tip/height', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 currentBlockHeight = await response.json();
                 const nextBlock = currentBlockHeight + 1;
                 
@@ -341,27 +370,87 @@
                 document.getElementById('playersOnline').textContent = Math.floor(Math.random() * 50) + 10;
                 
                 console.log('Bitcoin data loaded successfully');
+                return true;
                 
             } catch (error) {
                 console.error('Failed to load Bitcoin data:', error);
                 document.getElementById('nextBlock').textContent = 'Error';
                 document.getElementById('roundNumber').textContent = 'Error';
+                document.getElementById('playersOnline').textContent = 'Error';
+                
+                updateStatus('Failed to load game data', 'error');
+                return false;
             }
         }
 
-        function startBattle() {
-            if (isSDKReady && sdk && sdk.actions && sdk.actions.navigate) {
-                // Use SDK navigation if available
+        // Signal that the interface is ready
+        async function signalReady() {
+            if (isSDKReady && sdk) {
                 try {
-                    sdk.actions.navigate('/api/frame');
+                    console.log('Calling sdk.ready()...');
+                    await sdk.ready();
+                    console.log('sdk.ready() called successfully');
+                    updateStatus('✅ Mini App ready!', 'success');
                 } catch (error) {
-                    // Fallback to regular navigation
-                    window.location.href = '/api/frame';
+                    console.error('Error calling sdk.ready():', error);
+                    updateStatus('Mini App loaded with warnings', 'error');
                 }
             } else {
-                // Regular navigation
-                window.location.href = '/api/frame';
+                updateStatus('✅ Web app ready!', 'success');
             }
+            
+            // Show the interface
+            const container = document.getElementById('mainContainer');
+            container.classList.add('loaded');
+            isInterfaceReady = true;
+        }
+
+        // Main initialization function
+        async function initializeApp() {
+            console.log('Starting app initialization...');
+            
+            try {
+                // Step 1: Initialize SDK
+                await initializeFarcasterSDK();
+                
+                // Step 2: Load data
+                await loadBitcoinData();
+                
+                // Step 3: Small delay to ensure everything is loaded
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Step 4: Signal ready
+                await signalReady();
+                
+                console.log('App initialization complete');
+                
+            } catch (error) {
+                console.error('App initialization error:', error);
+                updateStatus('Initialization failed', 'error');
+                
+                // Still show the interface even if initialization fails
+                const container = document.getElementById('mainContainer');
+                container.classList.add('loaded');
+            }
+        }
+
+        // Game functions
+        function startBattle() {
+            console.log('Starting battle...');
+            
+            if (isSDKReady && sdk && sdk.actions && sdk.actions.navigate) {
+                try {
+                    console.log('Using SDK navigation');
+                    sdk.actions.navigate('/api/frame');
+                    return;
+                } catch (error) {
+                    console.log('SDK navigation failed, using fallback:', error);
+                }
+            }
+            
+            // Fallback navigation
+            console.log('Using fallback navigation');
+            window.location.href = '/api/frame';
         }
 
         function shareToFarcaster() {
@@ -385,16 +474,14 @@ Prize pool 🏆
             // Try to use SDK share if available
             if (isSDKReady && sdk && sdk.actions && sdk.actions.share) {
                 try {
-                    sdk.actions.share({
-                        text: shareText
-                    });
+                    console.log('Using SDK share');
+                    sdk.actions.share({ text: shareText });
                     return;
                 } catch (error) {
-                    console.log('SDK share not available, showing preview');
+                    console.log('SDK share failed:', error);
                 }
             }
 
-            // Fallback: show share preview for manual copying
             console.log('Share text generated for manual use');
         }
 
@@ -431,34 +518,27 @@ Prize pool 🏆
             document.body.removeChild(textarea);
         }
 
-        // Listen for messages from parent frame (if in iframe)
-        window.addEventListener('message', (event) => {
-            if (event.data.type === 'FARCASTER_SDK_READY') {
-                console.log('Received Farcaster SDK ready message');
-                isSDKReady = true;
-                updateStatus('✅ Connected to Farcaster Mini App', false);
-            }
-        });
-
-        // Initialize when page loads
+        // Event listeners
         document.addEventListener('DOMContentLoaded', () => {
             console.log('DOM loaded, starting initialization');
             initializeApp();
         });
-        
-        // Refresh data every 30 seconds
-        setInterval(loadBitcoinData, 30000);
 
-        // Signal to parent that we're ready (for Mini App environments)
-        window.addEventListener('load', () => {
-            console.log('Window loaded, signaling ready');
-            if (window.parent && window.parent !== window) {
-                window.parent.postMessage({ 
-                    type: 'MINI_APP_LOADED',
-                    ready: true 
-                }, '*');
+        // Refresh data every 30 seconds
+        setInterval(() => {
+            if (isInterfaceReady) {
+                loadBitcoinData();
+            }
+        }, 30000);
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && isInterfaceReady) {
+                loadBitcoinData();
             }
         });
+
+        console.log('Bitcoin TX Battle Royale script loaded');
     </script>
 </body>
 </html>
