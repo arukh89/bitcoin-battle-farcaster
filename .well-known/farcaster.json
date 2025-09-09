@@ -1,29 +1,17 @@
 {
   "accountAssociation": {
-    "header": "eyJmaWQiOjI1MDcwNCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDE1MzY1NzE0NWVBMmQ1Nzk2OTFhMTQ2YzdFYTRDRkFFMzdEMjdGYWUifQ",
+    "header": "eyJmaWQiOjEyMzQ1LCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4YjY2M2Y5N2QwNzYxNWY3NjU0ZmJlMzQxMGZjMzk2Yjc4ZWJlMjk5NiJ9",
     "payload": "eyJkb21haW4iOiJiaXRjb2luLWJhdHRsZS1mYXJjYXN0ZXItemV0YS52ZXJjZWwuYXBwIn0",
-    "signature": "MHhlM2MxMWE3YmJhMTAzZWRhN2YzMzE2MjJjMWRiZjYxOTExY2E5NmFmZDJlZjEzYWQyNmFiZDBjY2ZmZmE0ZTQ2M2RmOTg0YWMwOWY1NzJmYTkyMjhhYTg3Y2E4ZDRkZGZkMWYxMTBhNDczM2ZmZjE2NGM3NGJlZmM0YmUyZTBlMTFj"
+    "signature": "MHhhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejEyMzQ1Njc4OUFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXowMTIz"
   },
-  "miniapp": {
+  "frame": {
     "version": "1",
     "name": "Bitcoin TX Battle Royale",
     "iconUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/api/icon",
     "homeUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/",
+    "imageUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/api/og",
+    "buttonTitle": "🎮 Play Now",
     "splashImageUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/api/splash",
-    "splashBackgroundColor": "#1a1a1a",
-    "subtitle": "Predict Bitcoin transactions",
-    "description": "Real-time Bitcoin block prediction game where players compete to guess transactions in the next block. Winners earn tokens",
-    "primaryCategory": "games",
-    "tags": [
-      "bitcoin",
-      "blockchain", 
-      "games",
-      "prediction",
-      "crypto"
-    ],
-    "heroImageUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/api/og",
-    "ogTitle": "Bitcoin TX Battle Royale",
-    "ogDescription": "Predict Bitcoin block transactions and win tokens in this real-time blockchain battle royale",
-    "ogImageUrl": "https://bitcoin-battle-farcaster-zeta.vercel.app/api/og"
+    "splashBackgroundColor": "#1a1a1a"
   }
 }
