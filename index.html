@@ -5,24 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitcoin TX Battle Royale</title>
     
-    <!-- CORRECT Mini App Embed Meta Tag (NOT Frame tags) -->
-    <meta name="fc:miniapp" content='{"version":"1","imageUrl":"https://bitcoin-battle-farcaster-zeta.vercel.app/api/og","button":{"title":"🎮 Play Now","action":{"type":"launch_frame","name":"Bitcoin TX Battle Royale","url":"https://bitcoin-battle-farcaster-zeta.vercel.app/","splashImageUrl":"https://bitcoin-battle-farcaster-zeta.vercel.app/api/splash","splashBackgroundColor":"#1a1a1a"}}}' />
-    
-    <!-- Standard OG Meta Tags (for social sharing) -->
-    <meta property="og:title" content="Bitcoin TX Battle Royale" />
-    <meta property="og:description" content="Predict Bitcoin block transactions and win $Seconds tokens in this real-time blockchain battle royale" />
-    <meta property="og:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/og" />
+-farcaster-zeta.vercel.app/api/og" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:url" content="https://bitcoin-battle-farcaster-zeta.vercel.app/" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Bitcoin TX Battle Royale" />
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Bitcoin TX Battle Royale" />
-    <meta name="twitter:description" content="Predict Bitcoin block transactions and win $Seconds tokens" />
-    <meta name="twitter:image" content="https://bitcoin-battle-farcaster-zeta.vercel.app/api/og" />
     
     <style>
         * {
@@ -36,32 +23,25 @@
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
             color: white;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             padding: 20px;
         }
         
         .container {
-            max-width: 800px;
-            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
             text-align: center;
             opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
         }
         
         .container.ready {
             opacity: 1;
         }
         
-        .header {
-            margin-bottom: 30px;
-        }
-        
         .logo {
-            font-size: 3em;
+            font-size: 4em;
             color: #f7931a;
-            margin-bottom: 10px;
+            margin: 20px 0;
             animation: pulse 2s infinite;
         }
         
@@ -72,85 +52,100 @@
         }
         
         .title {
-            font-size: 2.5em;
+            font-size: 2.2em;
             font-weight: bold;
             color: #f7931a;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            line-height: 1.2;
         }
         
         .subtitle {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #cccccc;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         
-        .status-banner {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid rgba(0, 255, 0, 0.3);
-            color: #00ff00;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-weight: bold;
-        }
-        
-        .status-banner.loading {
+        .status-card {
             background: rgba(247, 147, 26, 0.1);
-            border: 1px solid rgba(247, 147, 26, 0.3);
-            color: #f7931a;
+            border: 2px solid rgba(247, 147, 26, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
         }
         
-        .status-banner.error {
+        .status-card.success {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: rgba(0, 255, 0, 0.3);
+            color: #00ff88;
+        }
+        
+        .status-card.error {
             background: rgba(255, 107, 53, 0.1);
-            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-color: rgba(255, 107, 53, 0.3);
             color: #ff6b35;
         }
         
-        .game-info {
-            background: rgba(247, 147, 26, 0.1);
-            border: 1px solid rgba(247, 147, 26, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 0;
-        }
-        
-        .block-info {
+        .game-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
         }
         
-        .info-card {
+        .stat-card {
             background: rgba(255, 255, 255, 0.05);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 1px solid rgba(247, 147, 26, 0.2);
             transition: transform 0.2s ease;
         }
         
-        .info-card:hover {
-            transform: translateY(-2px);
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(247, 147, 26, 0.4);
         }
         
-        .info-label {
-            font-size: 0.9em;
+        .stat-label {
+            font-size: 0.85em;
             color: #cccccc;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
-        .info-value {
-            font-size: 1.5em;
+        .stat-value {
+            font-size: 1.4em;
             font-weight: bold;
             color: #f7931a;
         }
         
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin: 30px 0;
+        .prediction-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #f7931a;
+        }
+        
+        .prediction-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px;
+            font-size: 1.2em;
+            text-align: center;
+            border: 2px solid #f7931a;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin: 15px 0;
+        }
+        
+        .prediction-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .prediction-input:focus {
+            outline: none;
+            border-color: #ffa500;
+            box-shadow: 0 0 10px rgba(247, 147, 26, 0.3);
         }
         
         .btn {
@@ -163,18 +158,21 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+            margin: 10px;
+            min-width: 150px;
         }
         
         .btn:hover {
             background: #e8851e;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(247, 147, 26, 0.3);
+            box-shadow: 0 4px 15px rgba(247, 147, 26, 0.4);
         }
         
-        .btn:active {
-            transform: translateY(0);
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .btn-secondary {
@@ -182,16 +180,30 @@
             border: 2px solid #f7931a;
         }
         
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             background: rgba(247, 147, 26, 0.3);
         }
         
-        .prize-pool {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+        .prize-info {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(247, 147, 26, 0.1) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        
+        .prize-info h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .tips {
+            background: rgba(255, 255, 255, 0.05);
             padding: 20px;
             border-radius: 10px;
-            margin: 20px 0;
+            margin: 25px 0;
+            font-size: 0.9em;
+            text-align: left;
         }
         
         .loading-spinner {
@@ -209,196 +221,179 @@
             to { transform: rotate(360deg); }
         }
         
-        .debug-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-family: monospace;
-            font-size: 0.9em;
-            text-align: left;
-            border-left: 4px solid #f7931a;
-        }
-        
         @media (max-width: 600px) {
             .title {
-                font-size: 2em;
+                font-size: 1.8em;
             }
             
-            .actions {
-                flex-direction: column;
-                align-items: center;
+            .game-stats {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .btn {
                 width: 100%;
-                max-width: 300px;
-            }
-            
-            .block-info {
-                grid-template-columns: 1fr;
+                margin: 5px 0;
             }
         }
     </style>
 </head>
 <body>
     <div class="container" id="app">
-        <div class="header">
-            <div class="logo">⚡₿</div>
-            <h1 class="title">Bitcoin TX Battle Royale</h1>
-            <p class="subtitle">Predict • Compete • Win $Seconds</p>
-        </div>
+        <div class="logo">⚡₿</div>
+        <h1 class="title">Bitcoin TX Battle Royale</h1>
+        <p class="subtitle">Predict • Compete • Win $Seconds</p>
         
-        <div id="statusBanner" class="status-banner loading">
+        <div id="statusCard" class="status-card">
             <div class="loading-spinner"></div>
-            <span id="statusText">Initializing Mini App...</span>
+            <span id="statusText">Connecting to Mini App...</span>
         </div>
         
-        <div class="debug-info" id="debugInfo">
-            <strong>Debug Info:</strong><br>
-            <span id="debugText">Loading...</span>
-        </div>
-        
-        <div class="game-info">
-            <h2>Next Block Prediction Challenge</h2>
-            <div class="block-info">
-                <div class="info-card">
-                    <div class="info-label">Next Block</div>
-                    <div id="nextBlock" class="info-value">Loading...</div>
-                </div>
-                <div class="info-card">
-                    <div class="info-label">Players Active</div>
-                    <div id="playersOnline" class="info-value">-</div>
-                </div>
-                <div class="info-card">
-                    <div class="info-label">Current Round</div>
-                    <div id="roundNumber" class="info-value">Loading...</div>
-                </div>
+        <div class="game-stats">
+            <div class="stat-card">
+                <div class="stat-label">Next Block</div>
+                <div id="nextBlock" class="stat-value">---</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Current Round</div>
+                <div id="roundNumber" class="stat-value">---</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Players Online</div>
+                <div id="playersOnline" class="stat-value">---</div>
             </div>
         </div>
         
-        <div class="prize-pool">
-            <h3 style="color: #ffd700;">🏆 Prize Pool Distribution</h3>
+        <div class="prediction-section">
+            <h3 style="color: #f7931a; margin-bottom: 15px;">🎯 Make Your Prediction</h3>
+            <input 
+                type="number" 
+                id="predictionInput" 
+                class="prediction-input" 
+                placeholder="Enter TX count (e.g. 3500)"
+                min="1"
+                max="10000"
+                disabled
+            />
+            <br>
+            <button id="submitBtn" class="btn" onclick="submitPrediction()" disabled>
+                Submit Prediction
+            </button>
+        </div>
+        
+        <div class="prize-info">
+            <h3>🏆 Prize Distribution</h3>
             <p><strong>🥇 1st Place:</strong> 500 $SECONDS</p>
             <p><strong>🥈 2nd Place:</strong> 250 $SECONDS</p>
-            <p><strong>🥉 3rd Place:</strong> 100 $SECONDS</p>
+            <p><strong>Total Pool:</strong> 750 $SECONDS</p>
         </div>
         
-        <div class="actions">
-            <button id="playBtn" class="btn" onclick="startBattle()">🎮 Join Battle</button>
-            <button id="shareBtn" class="btn btn-secondary" onclick="shareGame()">📢 Share Game</button>
-            <button id="debugBtn" class="btn btn-secondary" onclick="testSDK()">🔧 Test SDK</button>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <button id="shareBtn" class="btn btn-secondary" onclick="shareGame()">
+                📢 Share Battle
+            </button>
+            <button id="statsBtn" class="btn btn-secondary" onclick="viewStats()">
+                📊 My Stats  
+            </button>
         </div>
         
-        <div style="margin-top: 40px; padding: 20px; background: rgba(247, 147, 26, 0.1); border-radius: 10px;">
-            <h3>🎮 How to Play</h3>
-            <p><strong>1.</strong> Predict the exact number of transactions in the next Bitcoin block</p>
-            <p><strong>2.</strong> Submit your guess before the block is mined</p>
-            <p><strong>3.</strong> Closest prediction wins $Seconds tokens!</p>
-            <p><strong>4.</strong> Share to invite friends and increase the prize pool</p>
-            <br>
-            <p style="font-size: 0.9em; color: #cccccc;">
-                💡 <strong>Pro Tip:</strong> Bitcoin blocks typically contain 2,000-4,500 transactions. 
-                Monitor network activity for better predictions!
-            </p>
+        <div class="tips">
+            <h4 style="color: #f7931a; margin-bottom: 10px;">💡 Strategy Tips</h4>
+            <ul style="margin-left: 20px; line-height: 1.6;">
+                <li>Bitcoin blocks typically contain 2,000-4,500 transactions</li>
+                <li>High network activity = more transactions (4,000+)</li>
+                <li>Low activity periods = fewer transactions (1,500-2,500)</li>
+                <li>Check mempool.space for current network status</li>
+            </ul>
         </div>
     </div>
 
-    <!-- CORRECT Farcaster Mini App SDK -->
+    <!-- Farcaster Mini App SDK -->
     <script src="https://unpkg.com/@farcaster/miniapp-sdk@0.1.4/dist/index.js"></script>
     <script>
-        // Global app state
-        let miniAppSDK;
+        // App state
+        let miniAppSDK = null;
         let currentBlockHeight = 0;
         let roundNumber = 0;
         let isSDKReady = false;
-        let isAppReady = false;
-
-        // Debug logging
-        function debugLog(message, data = null) {
-            const timestamp = new Date().toLocaleTimeString();
-            console.log(`[${timestamp}] ${message}`, data || '');
-            
-            // Update debug display
-            const debugText = document.getElementById('debugText');
-            if (debugText) {
-                debugText.innerHTML += `<br>[${timestamp}] ${message}`;
-                if (data) {
-                    debugText.innerHTML += `: ${JSON.stringify(data, null, 2)}`;
-                }
-            }
-        }
+        let gameData = null;
 
         // Update status display
         function updateStatus(message, type = 'loading') {
-            const banner = document.getElementById('statusBanner');
-            const text = document.getElementById('statusText');
+            const statusCard = document.getElementById('statusCard');
+            const statusText = document.getElementById('statusText');
             
-            if (banner && text) {
-                text.textContent = message;
-                banner.className = `status-banner ${type}`;
+            if (statusCard && statusText) {
+                statusText.textContent = message;
+                statusCard.className = `status-card ${type}`;
             }
             
-            debugLog(`Status: ${message} (${type})`);
+            console.log(`[${type.toUpperCase()}] ${message}`);
         }
 
         // Initialize Farcaster Mini App SDK
-        async function initializeMiniAppSDK() {
+        async function initializeMiniApp() {
             try {
-                debugLog('Checking for Farcaster Mini App environment...');
+                updateStatus('Initializing Mini App SDK...', 'loading');
                 
-                // Check for the CORRECT SDK
+                // Wait for SDK to be available
                 if (typeof window.farcaster !== 'undefined' && window.farcaster.miniapp) {
                     miniAppSDK = window.farcaster.miniapp;
-                    debugLog('✅ Farcaster Mini App SDK detected', {
-                        version: miniAppSDK.version || 'unknown',
-                        context: miniAppSDK.context || 'unknown'
-                    });
                     
-                    updateStatus('Connected to Farcaster Mini App', 'success');
+                    updateStatus('Connected to Farcaster Mini App! 🎉', 'success');
                     isSDKReady = true;
-                    return true;
                     
-                } else if (typeof window.farcaster !== 'undefined') {
-                    debugLog('⚠️ Farcaster object found but miniapp property missing', window.farcaster);
-                    updateStatus('Farcaster detected but Mini App SDK missing', 'error');
-                    return false;
+                    // Enable game interface
+                    enableGameInterface();
+                    
+                    // Load game data
+                    await loadGameData();
+                    
+                    // Signal ready to Farcaster
+                    if (miniAppSDK.actions && miniAppSDK.actions.ready) {
+                        await miniAppSDK.actions.ready();
+                        console.log('Mini App ready signal sent');
+                    }
                     
                 } else {
-                    debugLog('ℹ️ No Farcaster SDK detected - running in web browser mode');
-                    updateStatus('Running in web browser mode (not a Mini App)', 'info');
-                    return false;
+                    throw new Error('Farcaster Mini App SDK not available');
                 }
                 
             } catch (error) {
-                debugLog('❌ SDK initialization error', error);
-                updateStatus('SDK initialization failed', 'error');
-                return false;
+                console.error('Mini App initialization failed:', error);
+                updateStatus('❌ Failed to connect to Farcaster Mini App', 'error');
+                
+                // Show fallback message
+                setTimeout(() => {
+                    updateStatus('Please open this in a Farcaster app that supports Mini Apps', 'error');
+                }, 2000);
             }
         }
 
+        // Enable game interface elements
+        function enableGameInterface() {
+            const predictionInput = document.getElementById('predictionInput');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (predictionInput) predictionInput.disabled = false;
+            if (submitBtn) submitBtn.disabled = false;
+            
+            // Show the main container
+            const app = document.getElementById('app');
+            if (app) app.classList.add('ready');
+        }
+
         // Load Bitcoin blockchain data
-        async function loadBitcoinData() {
+        async function loadGameData() {
             try {
-                debugLog('Loading Bitcoin network data...');
-                updateStatus('Loading Bitcoin data...', 'loading');
-                
-                // Add timeout to the fetch request
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                updateStatus('Loading Bitcoin network data...', 'loading');
                 
                 const response = await fetch('https://mempool.space/api/blocks/tip/height', {
                     method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
-                    },
-                    signal: controller.signal
+                    headers: { 'Accept': 'application/json' }
                 });
                 
-                clearTimeout(timeoutId);
-                
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    throw new Error(`HTTP ${response.status}`);
                 }
                 
                 currentBlockHeight = await response.json();
@@ -407,137 +402,135 @@
                 // Update UI
                 document.getElementById('nextBlock').textContent = `#${nextBlock}`;
                 
-                // Calculate round number (example formula)
-                roundNumber = Math.floor((nextBlock - 900000) / 10) + 100;
+                // Calculate round number
+                roundNumber = Math.floor((nextBlock - 850000) / 100) + 200;
                 document.getElementById('roundNumber').textContent = `#${roundNumber}`;
                 
                 // Simulate active players
-                const players = Math.floor(Math.random() * 75) + 15;
+                const players = Math.floor(Math.random() * 50) + 25;
                 document.getElementById('playersOnline').textContent = players;
                 
-                debugLog('✅ Bitcoin data loaded successfully', {
+                updateStatus('✅ Ready to play!', 'success');
+                
+                console.log('Game data loaded:', {
                     currentBlock: currentBlockHeight,
                     nextBlock: nextBlock,
                     roundNumber: roundNumber,
                     players: players
                 });
                 
-                return true;
-                
             } catch (error) {
-                debugLog('❌ Failed to load Bitcoin data', error);
+                console.error('Failed to load game data:', error);
+                updateStatus('Failed to load blockchain data', 'error');
                 
-                // Update UI with error state
+                // Set fallback values
                 document.getElementById('nextBlock').textContent = 'Error';
                 document.getElementById('roundNumber').textContent = 'Error';
                 document.getElementById('playersOnline').textContent = 'Error';
-                
-                updateStatus('Failed to load blockchain data', 'error');
-                return false;
             }
         }
 
-        // Signal that the Mini App is ready to be displayed
-        async function signalAppReady() {
-            try {
-                if (isSDKReady && miniAppSDK && miniAppSDK.actions && miniAppSDK.actions.ready) {
-                    debugLog('Calling sdk.actions.ready()...');
-                    await miniAppSDK.actions.ready();
-                    debugLog('✅ sdk.actions.ready() called successfully');
-                    updateStatus('✅ Mini App ready and displayed!', 'success');
-                } else {
-                    debugLog('ℹ️ SDK not available, skipping ready() call');
-                    updateStatus('✅ Web app loaded successfully!', 'success');
-                }
-                
-                // Show the main interface
-                const app = document.getElementById('app');
-                if (app) {
-                    app.classList.add('ready');
-                }
-                
-                isAppReady = true;
-                debugLog('App interface is now visible');
-                
-            } catch (error) {
-                debugLog('❌ Error signaling app ready', error);
-                updateStatus('App loaded with errors', 'error');
-                
-                // Still show the interface
-                const app = document.getElementById('app');
-                if (app) {
-                    app.classList.add('ready');
-                }
+        // Submit prediction
+        async function submitPrediction() {
+            const input = document.getElementById('predictionInput');
+            const prediction = parseInt(input.value);
+            
+            if (!prediction || prediction < 1 || prediction > 10000) {
+                alert('Please enter a valid prediction between 1 and 10,000 transactions');
+                return;
             }
-        }
-
-        // Main initialization sequence
-        async function initializeApp() {
-            debugLog('🚀 Starting Bitcoin TX Battle Royale Mini App initialization');
             
             try {
-                // Step 1: Initialize SDK
-                await initializeMiniAppSDK();
+                updateStatus('Submitting prediction...', 'loading');
                 
-                // Step 2: Load game data
-                await loadBitcoinData();
+                // In a real app, you'd submit to your backend
+                // For now, just simulate success
+                await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                // Step 3: Brief delay to ensure DOM is ready
-                await new Promise(resolve => setTimeout(resolve, 500));
+                updateStatus(`✅ Prediction submitted: ${prediction} TX!`, 'success');
                 
-                // Step 4: Signal that app is ready to display
-                await signalAppReady();
+                // Disable form after submission
+                input.disabled = true;
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').textContent = 'Prediction Submitted!';
                 
-                debugLog('✅ App initialization completed successfully');
+                // Show success message with next steps
+                setTimeout(() => {
+                    updateStatus('Good luck! Results when block is mined 🍀', 'success');
+                }, 2000);
                 
             } catch (error) {
-                debugLog('❌ Critical initialization error', error);
-                updateStatus('Initialization failed - some features may not work', 'error');
-                
-                // Always show the interface, even if there are errors
-                const app = document.getElementById('app');
-                if (app) {
-                    app.classList.add('ready');
-                }
+                console.error('Prediction submission failed:', error);
+                updateStatus('Failed to submit prediction. Try again.', 'error');
             }
         }
 
-        // Game action functions
-        function startBattle() {
-            debugLog('User clicked "Join Battle"');
-            
-            if (isSDKReady && miniAppSDK && miniAppSDK.actions && miniAppSDK.actions.navigate) {
-                try {
-                    debugLog('Using Mini App navigation to /api/frame');
-                    miniAppSDK.actions.navigate('/api/frame');
-                    return;
-                } catch (error) {
-                    debugLog('Mini App navigation failed, using fallback', error);
-                }
-            }
-            
-            // Fallback for web browsers
-            debugLog('Using standard navigation fallback');
-            window.location.href = '/api/frame';
-        }
-
+        // Share game function
         function shareGame() {
-            debugLog('User clicked "Share Game"');
-            
             const nextBlock = currentBlockHeight + 1;
-            const shareText = `⛏️ BITCOIN BLOCKS ROUND #${roundNumber} — POWERED BY $SECONDS ⏱️
+            const shareText = `⛏️ BITCOIN TX BATTLE ROUND #${roundNumber}
 
-🎯 Challenge: Predict transactions in Bitcoin Block #${nextBlock}
-🏆 Prize Pool: 750 $SECONDS total
-🎮 Play: https://bitcoin-battle-farcaster-zeta.vercel.app/
+🎯 Predict transactions in Block #${nextBlock}
+🏆 750 $SECONDS prize pool
+🎮 Join: https://bitcoin-battle-farcaster-zeta.vercel.app/
 
-#Bitcoin #GameFi #Seconds #Farcaster`;
+#Bitcoin #Farcaster #GameFi`;
 
-            if (isSDKReady && miniAppSDK && miniAppSDK.actions && miniAppSDK.actions.share) {
-                try {
-                    debugLog('Using Mini App share functionality');
+            try {
+                if (isSDKReady && miniAppSDK.actions && miniAppSDK.actions.share) {
                     miniAppSDK.actions.share({ text: shareText });
-                    return;
-                } catch (error) {
-                    debugLog('Mini App share failed', error);
-    
+                } else if (navigator.share) {
+                    navigator.share({
+                        title: 'Bitcoin TX Battle Royale',
+                        text: shareText,
+                        url: 'https://bitcoin-battle-farcaster-zeta.vercel.app/'
+                    });
+                } else {
+                    // Fallback: copy to clipboard
+                    navigator.clipboard.writeText(shareText).then(() => {
+                        alert('Share text copied to clipboard!');
+                    });
+                }
+            } catch (error) {
+                console.error('Share failed:', error);
+                alert('Sharing not available');
+            }
+        }
+
+        // View stats function
+        function viewStats() {
+            // In a real app, you'd fetch user stats
+            const mockStats = {
+                gamesPlayed: Math.floor(Math.random() * 20) + 1,
+                wins: Math.floor(Math.random() * 5),
+                tokensWon: Math.floor(Math.random() * 1000) + 50,
+                bestRank: Math.floor(Math.random() * 100) + 1
+            };
+            
+            alert(`Your Stats:\n🎮 Games: ${mockStats.gamesPlayed}\n🏆 Wins: ${mockStats.wins}\n💰 Tokens: ${mockStats.tokensWon}\n🏅 Best Rank: #${mockStats.bestRank}`);
+        }
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Bitcoin TX Battle Royale Mini App starting...');
+            
+            // Small delay to ensure SDK is loaded
+            setTimeout(() => {
+                initializeMiniApp();
+            }, 500);
+        });
+
+        // Handle SDK load events
+        window.addEventListener('load', function() {
+            console.log('Window loaded, checking for SDK...');
+            
+            // Double-check SDK availability after window load
+            setTimeout(() => {
+                if (!isSDKReady) {
+                    initializeMiniApp();
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
